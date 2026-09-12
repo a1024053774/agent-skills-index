@@ -1,0 +1,54 @@
+{
+  "catalog_version": 1,
+  "maintainer": "a1024053774",
+  "skills": [
+    {
+      "name": "reality-first-engineering",
+      "category": "reality-and-evidence",
+      "description": "Establish a fact-backed direction gate before consequential implementation.",
+      "repository": "https://github.com/a1024053774/reality-evidence-engineering",
+      "path": "reality-first-engineering",
+      "install": "npx skills add a1024053774/reality-evidence-engineering@reality-first-engineering -g -y"
+    },
+    {
+      "name": "evidence-first-testing",
+      "category": "reality-and-evidence",
+      "description": "Preserve red-state evidence and prove that tests detect the intended behavior.",
+      "repository": "https://github.com/a1024053774/reality-evidence-engineering",
+      "path": "evidence-first-testing",
+      "install": "npx skills add a1024053774/reality-evidence-engineering@evidence-first-testing -g -y"
+    },
+    {
+      "name": "design-integrity-review",
+      "category": "design-integrity-and-acceptance",
+      "description": "Route structural risk findings through a bounded review.",
+      "repository": "https://github.com/a1024053774/design-integrity-guardrails",
+      "path": "design-integrity-review",
+      "install": "npx skills add a1024053774/design-integrity-guardrails@design-integrity-review -g -y"
+    },
+    {
+      "name": "behavioral-acceptance-review",
+      "category": "design-integrity-and-acceptance",
+      "description": "Audit whether tests, evals, and user-visible workflows provide independent evidence.",
+      "repository": "https://github.com/a1024053774/design-integrity-guardrails",
+      "path": "behavioral-acceptance-review",
+      "install": "npx skills add a1024053774/design-integrity-guardrails@behavioral-acceptance-review -g -y"
+    },
+    {
+      "name": "agent-acceptance-testing",
+      "category": "design-integrity-and-acceptance",
+      "description": "Plan and judge evidence-backed acceptance cycles for Agent products.",
+      "repository": "https://github.com/a1024053774/design-integrity-guardrails",
+      "path": "agent-acceptance-testing",
+      "install": "npx skills add a1024053774/design-integrity-guardrails@agent-acceptance-testing -g -y"
+    },
+    {
+      "name": "grilling",
+      "category": "decision-making",
+      "description": "Stress-test a plan or decision in rounds while persisting the decision tree and current frontier.",
+      "repository": "https://github.com/a1024053774/grilling-skill",
+      "path": "grilling",
+      "install": "npx skills add a1024053774/grilling-skill@grilling -g -y"
+    }
+  ]
+}
