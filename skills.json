@@ -37,10 +37,10 @@
     {
       "name": "agent-acceptance-testing",
       "category": "design-integrity-and-acceptance",
-      "description": "Plan and judge evidence-backed acceptance cycles for Agent products.",
-      "repository": "https://github.com/a1024053774/design-integrity-guardrails",
+      "description": "Plan, execute, and judge evidence-backed acceptance cycles for any model-driven Agent product.",
+      "repository": "https://github.com/a1024053774/agent-acceptance-testing-skill",
       "path": "agent-acceptance-testing",
-      "install": "npx skills add a1024053774/design-integrity-guardrails@agent-acceptance-testing -g -y"
+      "install": "npx skills add a1024053774/agent-acceptance-testing-skill@agent-acceptance-testing -g -y"
     },
     {
       "name": "grilling",
