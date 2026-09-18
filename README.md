@@ -38,6 +38,13 @@ Source repository: [agent-acceptance-testing-skill](https://github.com/a10240537
 
 Source repository: [grilling-skill](https://github.com/a1024053774/grilling-skill)
 
+### Frontend
+
+- [`frontend-less-ai-tone`](https://github.com/a1024053774/frontend-less-ai-tone-skill/tree/main/frontend-less-ai-tone)
+  — make frontend work look and read like a specific product, not a generic AI landing page.
+
+Source repository: [frontend-less-ai-tone-skill](https://github.com/a1024053774/frontend-less-ai-tone-skill)
+
 ## Install examples
 
 Install one Skill globally:
@@ -54,6 +61,7 @@ npx skills add a1024053774/reality-evidence-engineering@evidence-first-testing -
 npx skills add a1024053774/design-integrity-guardrails@design-integrity-review -g -y
 npx skills add a1024053774/design-integrity-guardrails@behavioral-acceptance-review -g -y
 npx skills add a1024053774/agent-acceptance-testing-skill@agent-acceptance-testing -g -y
+npx skills add a1024053774/frontend-less-ai-tone-skill@frontend-less-ai-tone -g -y
 ```
 
 The machine-readable catalog is [`skills.json`](skills.json). Keep this index limited to links,

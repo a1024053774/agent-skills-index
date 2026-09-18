@@ -49,6 +49,14 @@
       "repository": "https://github.com/a1024053774/grilling-skill",
       "path": "grilling",
       "install": "npx skills add a1024053774/grilling-skill@grilling -g -y"
+    },
+    {
+      "name": "frontend-less-ai-tone",
+      "category": "frontend",
+      "description": "Make frontend work look and read like a specific product, not a generic AI landing page.",
+      "repository": "https://github.com/a1024053774/frontend-less-ai-tone-skill",
+      "path": "frontend-less-ai-tone",
+      "install": "npx skills add a1024053774/frontend-less-ai-tone-skill@frontend-less-ai-tone -g -y"
     }
   ]
 }
