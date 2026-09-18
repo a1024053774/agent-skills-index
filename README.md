@@ -42,8 +42,10 @@ Source repository: [grilling-skill](https://github.com/a1024053774/grilling-skil
 
 - [`frontend-less-ai-tone`](https://github.com/a1024053774/frontend-less-ai-tone-skill/tree/main/frontend-less-ai-tone)
   — make frontend work look and read like a specific product, not a generic AI landing page.
+- [`same-visual-family`](https://github.com/a1024053774/same-visual-family-skill/tree/main/same-visual-family)
+  — keep composed UI in one visual family; drop-in skinned blocks fail, restyled structure can pass.
 
-Source repository: [frontend-less-ai-tone-skill](https://github.com/a1024053774/frontend-less-ai-tone-skill)
+Source repositories: [frontend-less-ai-tone-skill](https://github.com/a1024053774/frontend-less-ai-tone-skill) · [same-visual-family-skill](https://github.com/a1024053774/same-visual-family-skill)
 
 ## Install examples
 
@@ -62,6 +64,7 @@ npx skills add a1024053774/design-integrity-guardrails@design-integrity-review -
 npx skills add a1024053774/design-integrity-guardrails@behavioral-acceptance-review -g -y
 npx skills add a1024053774/agent-acceptance-testing-skill@agent-acceptance-testing -g -y
 npx skills add a1024053774/frontend-less-ai-tone-skill@frontend-less-ai-tone -g -y
+npx skills add a1024053774/same-visual-family-skill@same-visual-family -g -y
 ```
 
 The machine-readable catalog is [`skills.json`](skills.json). Keep this index limited to links,

@@ -57,6 +57,14 @@
       "repository": "https://github.com/a1024053774/frontend-less-ai-tone-skill",
       "path": "frontend-less-ai-tone",
       "install": "npx skills add a1024053774/frontend-less-ai-tone-skill@frontend-less-ai-tone -g -y"
+    },
+    {
+      "name": "same-visual-family",
+      "category": "frontend",
+      "description": "Keep composed UI in one visual family. Drop-in skinned blocks fail; restyled structure can pass.",
+      "repository": "https://github.com/a1024053774/same-visual-family-skill",
+      "path": "same-visual-family",
+      "install": "npx skills add a1024053774/same-visual-family-skill@same-visual-family -g -y"
     }
   ]
 }
