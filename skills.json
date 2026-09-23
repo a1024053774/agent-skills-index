@@ -51,6 +51,14 @@
       "install": "npx skills add a1024053774/grilling-skill@grilling -g -y"
     },
     {
+      "name": "project-map",
+      "category": "decision-making",
+      "description": "Keep a long-running project's decisions, open tickets, and living docs in a small local map, and catch living docs that go stale against the code.",
+      "repository": "https://github.com/a1024053774/project-map-skill",
+      "path": "project-map",
+      "install": "npx skills add a1024053774/project-map-skill@project-map -g -y"
+    },
+    {
       "name": "document-writing",
       "category": "writing",
       "description": "Draft, polish, or translate documents with natural target-language prose, semantic fidelity, and encoding protection.",

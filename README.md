@@ -31,12 +31,14 @@ Source repository: [design-integrity-guardrails](https://github.com/a1024053774/
 
 Source repository: [agent-acceptance-testing-skill](https://github.com/a1024053774/agent-acceptance-testing-skill)
 
-### Decision grilling
+### Decisions and project state
 
 - [`grilling`](https://github.com/a1024053774/grilling-skill/tree/main/grilling)
-  — stress-test a plan or decision in rounds while persisting the decision tree and current frontier.
+  — stress-test a plan or decision in rounds until the way forward is clear, then hand off.
+- [`project-map`](https://github.com/a1024053774/project-map-skill/tree/main/project-map)
+  — keep a project's decisions, open tickets, and living docs in a small local map, and catch stale docs.
 
-Source repository: [grilling-skill](https://github.com/a1024053774/grilling-skill)
+Source repositories: [grilling-skill](https://github.com/a1024053774/grilling-skill) · [project-map-skill](https://github.com/a1024053774/project-map-skill)
 
 ### Writing
 
@@ -70,6 +72,7 @@ npx skills add a1024053774/reality-evidence-engineering@evidence-first-testing -
 npx skills add a1024053774/design-integrity-guardrails@design-integrity-review -g -y
 npx skills add a1024053774/design-integrity-guardrails@behavioral-acceptance-review -g -y
 npx skills add a1024053774/agent-acceptance-testing-skill@agent-acceptance-testing -g -y
+npx skills add a1024053774/project-map-skill@project-map -g -y
 npx skills add a1024053774/document-writing-skill@document-writing -g -y
 npx skills add a1024053774/frontend-less-ai-tone-skill@frontend-less-ai-tone -g -y
 npx skills add a1024053774/same-visual-family-skill@same-visual-family -g -y
@@ -77,6 +80,24 @@ npx skills add a1024053774/same-visual-family-skill@same-visual-family -g -y
 
 The machine-readable catalog is [`skills.json`](skills.json). Keep this index limited to links,
 metadata, and install coordinates; changes to Skill behavior belong in the canonical source repo.
+
+## Local checkouts and the skill hub
+
+When you develop the Skills locally, keep one checkout per source repository under one folder
+(default `~/Documents/SKILLS/<repository>`) and use `~/.agents/skills` as the hub. Codex, Cursor,
+Gemini CLI, and Factory read the hub directly; Claude Code reads only `~/.claude/skills`, so it gets
+links into the hub. [`scripts/sync_skills.py`](scripts/sync_skills.py) reconciles this layout from
+`skills.json`:
+
+```bash
+python3 scripts/sync_skills.py            # dry run: print the link changes
+python3 scripts/sync_skills.py --apply    # apply them
+```
+
+It links catalog Skills from your checkouts into the hub, mirrors the hub into `~/.claude/skills`,
+and removes symlinks in hub-reading directories that would list a Skill twice or that are broken.
+Real directories are only reported, never moved. Edit `MIRRORS` and `HUB_READERS` at the top of
+the script if your harness set differs.
 
 ## Integration options
 
