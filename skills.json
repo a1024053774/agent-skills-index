@@ -21,7 +21,7 @@
     {
       "name": "design-integrity-review",
       "category": "design-integrity-and-acceptance",
-      "description": "Route structural risk findings through a bounded review.",
+      "description": "Review one frozen change once for structural shortcuts, or route evaluation changes to acceptance review.",
       "repository": "https://github.com/a1024053774/design-integrity-guardrails",
       "path": "design-integrity-review",
       "install": "npx skills add a1024053774/design-integrity-guardrails@design-integrity-review -g -y"
@@ -49,6 +49,14 @@
       "repository": "https://github.com/a1024053774/grilling-skill",
       "path": "grilling",
       "install": "npx skills add a1024053774/grilling-skill@grilling -g -y"
+    },
+    {
+      "name": "document-writing",
+      "category": "writing",
+      "description": "Draft, polish, or translate documents with natural target-language prose, semantic fidelity, and encoding protection.",
+      "repository": "https://github.com/a1024053774/document-writing-skill",
+      "path": "document-writing",
+      "install": "npx skills add a1024053774/document-writing-skill@document-writing -g -y"
     },
     {
       "name": "frontend-less-ai-tone",

@@ -18,7 +18,7 @@ Source repository: [reality-evidence-engineering](https://github.com/a1024053774
 ### Design integrity and acceptance
 
 - [`design-integrity-review`](https://github.com/a1024053774/design-integrity-guardrails/tree/main/design-integrity-review)
-  — route structural risk findings through a bounded review.
+  — review one frozen change once for structural shortcuts, or route evaluation changes to acceptance review.
 - [`behavioral-acceptance-review`](https://github.com/a1024053774/design-integrity-guardrails/tree/main/behavioral-acceptance-review)
   — audit whether tests, evals, and user-visible workflows provide independent evidence.
 
@@ -37,6 +37,13 @@ Source repository: [agent-acceptance-testing-skill](https://github.com/a10240537
   — stress-test a plan or decision in rounds while persisting the decision tree and current frontier.
 
 Source repository: [grilling-skill](https://github.com/a1024053774/grilling-skill)
+
+### Writing
+
+- [`document-writing`](https://github.com/a1024053774/document-writing-skill/tree/main/document-writing)
+  — draft, polish, or translate documents with natural target-language prose, semantic fidelity, and encoding protection.
+
+Source repository: [document-writing-skill](https://github.com/a1024053774/document-writing-skill)
 
 ### Frontend
 
@@ -63,6 +70,7 @@ npx skills add a1024053774/reality-evidence-engineering@evidence-first-testing -
 npx skills add a1024053774/design-integrity-guardrails@design-integrity-review -g -y
 npx skills add a1024053774/design-integrity-guardrails@behavioral-acceptance-review -g -y
 npx skills add a1024053774/agent-acceptance-testing-skill@agent-acceptance-testing -g -y
+npx skills add a1024053774/document-writing-skill@document-writing -g -y
 npx skills add a1024053774/frontend-less-ai-tone-skill@frontend-less-ai-tone -g -y
 npx skills add a1024053774/same-visual-family-skill@same-visual-family -g -y
 ```
