@@ -20,16 +20,9 @@ Source repository: [reality-evidence-engineering](https://github.com/a1024053774
 - [`design-integrity-review`](https://github.com/a1024053774/design-integrity-guardrails/tree/main/design-integrity-review)
   — review one frozen change once for structural shortcuts, or route evaluation changes to acceptance review.
 - [`behavioral-acceptance-review`](https://github.com/a1024053774/design-integrity-guardrails/tree/main/behavioral-acceptance-review)
-  — audit whether tests, evals, and user-visible workflows provide independent evidence.
+  — audit whether tests, evals, and user-visible workflows provide independent evidence, including release verdicts for Agent products.
 
 Source repository: [design-integrity-guardrails](https://github.com/a1024053774/design-integrity-guardrails)
-
-### Agent acceptance
-
-- [`agent-acceptance-testing`](https://github.com/a1024053774/agent-acceptance-testing-skill/tree/main/agent-acceptance-testing)
-  — plan, execute, and judge evidence-backed acceptance cycles for any model-driven Agent product.
-
-Source repository: [agent-acceptance-testing-skill](https://github.com/a1024053774/agent-acceptance-testing-skill)
 
 ### Decisions and project state
 
@@ -71,7 +64,6 @@ npx skills add a1024053774/reality-evidence-engineering@reality-first-engineerin
 npx skills add a1024053774/reality-evidence-engineering@evidence-first-testing -g -y
 npx skills add a1024053774/design-integrity-guardrails@design-integrity-review -g -y
 npx skills add a1024053774/design-integrity-guardrails@behavioral-acceptance-review -g -y
-npx skills add a1024053774/agent-acceptance-testing-skill@agent-acceptance-testing -g -y
 npx skills add a1024053774/project-map-skill@project-map -g -y
 npx skills add a1024053774/document-writing-skill@document-writing -g -y
 npx skills add a1024053774/frontend-less-ai-tone-skill@frontend-less-ai-tone -g -y
