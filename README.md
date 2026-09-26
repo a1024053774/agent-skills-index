@@ -29,7 +29,8 @@ Source repository: [design-integrity-guardrails](https://github.com/a1024053774/
 - [`grilling`](https://github.com/a1024053774/grilling-skill/tree/main/grilling)
   — stress-test a plan or decision in rounds until the way forward is clear, then hand off.
 - [`project-map`](https://github.com/a1024053774/project-map-skill/tree/main/project-map)
-  — keep a project's decisions, open tickets, and living docs in a small local map, and catch stale docs.
+  — keep a project's decisions, tickets, glossary, and living docs in a small local map; carry work from
+  decisions to a spec, tracer-bullet build tickets, and one ticket per session; catch stale docs.
 
 Source repositories: [grilling-skill](https://github.com/a1024053774/grilling-skill) · [project-map-skill](https://github.com/a1024053774/project-map-skill)
 

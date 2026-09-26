@@ -45,7 +45,7 @@
     {
       "name": "project-map",
       "category": "decision-making",
-      "description": "Keep a long-running project's decisions, open tickets, and living docs in a small local map, and catch living docs that go stale against the code.",
+      "description": "Keep a project's decisions, tickets, glossary, and living docs in a small local map; carry work from decisions to a spec, tracer-bullet build tickets, and one ticket per session; catch stale docs.",
       "repository": "https://github.com/a1024053774/project-map-skill",
       "path": "project-map",
       "install": "npx skills add a1024053774/project-map-skill@project-map -g -y"
