@@ -51,6 +51,14 @@
       "install": "npx skills add a1024053774/project-map-skill@project-map -g -y"
     },
     {
+      "name": "architecture-flow-map",
+      "category": "codebase-understanding",
+      "description": "Trace how an existing codebase runs into an interactive map with step-by-step scenarios and verified code references.",
+      "repository": "https://github.com/a1024053774/architecture-flow-map-skill",
+      "path": "architecture-flow-map",
+      "install": "npx skills add a1024053774/architecture-flow-map-skill@architecture-flow-map -g -y"
+    },
+    {
       "name": "document-writing",
       "category": "writing",
       "description": "Draft, polish, or translate documents with natural target-language prose, semantic fidelity, and encoding protection.",

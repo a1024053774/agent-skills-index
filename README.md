@@ -34,6 +34,14 @@ Source repository: [design-integrity-guardrails](https://github.com/a1024053774/
 
 Source repositories: [grilling-skill](https://github.com/a1024053774/grilling-skill) · [project-map-skill](https://github.com/a1024053774/project-map-skill)
 
+### Understanding a codebase
+
+- [`architecture-flow-map`](https://github.com/a1024053774/architecture-flow-map-skill/tree/main/architecture-flow-map)
+  — trace how an existing codebase actually runs into an interactive map: modules, business objects, and key
+  scenarios replayed step by step, with every code reference verified against the repository.
+
+Source repository: [architecture-flow-map-skill](https://github.com/a1024053774/architecture-flow-map-skill)
+
 ### Writing
 
 - [`document-writing`](https://github.com/a1024053774/document-writing-skill/tree/main/document-writing)
@@ -66,6 +74,7 @@ npx skills add a1024053774/reality-evidence-engineering@evidence-first-testing -
 npx skills add a1024053774/design-integrity-guardrails@design-integrity-review -g -y
 npx skills add a1024053774/design-integrity-guardrails@behavioral-acceptance-review -g -y
 npx skills add a1024053774/project-map-skill@project-map -g -y
+npx skills add a1024053774/architecture-flow-map-skill@architecture-flow-map -g -y
 npx skills add a1024053774/document-writing-skill@document-writing -g -y
 npx skills add a1024053774/frontend-less-ai-tone-skill@frontend-less-ai-tone -g -y
 npx skills add a1024053774/same-visual-family-skill@same-visual-family -g -y
