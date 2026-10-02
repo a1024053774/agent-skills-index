@@ -40,7 +40,8 @@
       "description": "Stress-test a plan or decision in rounds while persisting the decision tree and current frontier.",
       "repository": "https://github.com/a1024053774/grilling-skill",
       "path": "grilling",
-      "install": "npx skills add a1024053774/grilling-skill@grilling -g -y"
+      "install": "npx skills add a1024053774/grilling-skill@grilling -g -y",
+      "maxBytes": 11264
     },
     {
       "name": "project-map",

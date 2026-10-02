@@ -37,6 +37,12 @@ def entries(directory: Path) -> list[Path]:
     return sorted(p for p in directory.iterdir() if not p.name.startswith(".")) if directory.is_dir() else []
 
 
+def catalog_sources(source_root: Path) -> list[tuple[dict, Path]]:
+    """Each catalog skill with the path of its local checkout under source_root."""
+    skills = json.loads(CATALOG.read_text(encoding="utf-8"))["skills"]
+    return [(s, source_root / s["repository"].rstrip("/").split("/")[-1] / s["path"]) for s in skills]
+
+
 def plan(source_root: Path) -> tuple[list[tuple[str, Path, Path | None]], list[str]]:
     """Return (actions, notes). An action is ("link", path, target) or ("remove", path, None)."""
     actions: list[tuple[str, Path, Path | None]] = []
@@ -52,8 +58,7 @@ def plan(source_root: Path) -> tuple[list[tuple[str, Path, Path | None]], list[s
             actions.append(("link", path, target))
 
     hub_names = {p.name for p in entries(HUB)}
-    for skill in json.loads(CATALOG.read_text(encoding="utf-8"))["skills"]:
-        source = source_root / skill["repository"].rstrip("/").split("/")[-1] / skill["path"]
+    for skill, source in catalog_sources(source_root):
         if not (source / "SKILL.md").is_file():
             notes.append(f"{skill['name']}: no local checkout at {source}; not linked")
             continue
