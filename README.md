@@ -88,7 +88,7 @@ metadata, and install coordinates; changes to Skill behavior belong in the canon
 When you develop the Skills locally, keep one checkout per source repository under one folder
 (default `~/Documents/SKILLS/<repository>`) and use `~/.agents/skills` as the hub. Codex, Cursor,
 Gemini CLI, and Factory read the hub directly; Claude Code reads only `~/.claude/skills`, so it gets
-links into the hub. [`scripts/sync_skills.py`](scripts/sync_skills.py) reconciles this layout from
+links into the hub, and WorkBuddy, Trae, Qoder, and Kiro get links to the Skills listed for them. [`scripts/sync_skills.py`](scripts/sync_skills.py) reconciles this layout from
 `skills.json`:
 
 ```bash

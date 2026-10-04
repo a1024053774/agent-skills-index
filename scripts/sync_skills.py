@@ -22,7 +22,10 @@ HUB = HOME / ".agents/skills"
 # Harness skill dirs that do not read the hub: dir -> skill names to link (None = every hub skill).
 MIRRORS: dict[Path, list[str] | None] = {
     HOME / ".claude/skills": None,
-    HOME / ".workbuddy/skills": ["document-writing"],
+    HOME / ".workbuddy/skills": ["document-writing", "grilling"],
+    HOME / ".trae/skills": ["document-writing", "grilling"],
+    HOME / ".qoder/skills": ["grilling"],
+    HOME / ".kiro/skills": ["document-writing", "grilling"],
 }
 # Harness skill dirs that read the hub themselves (Codex, Cursor, Gemini CLI, Factory Droid).
 HUB_READERS = [HOME / ".codex/skills", HOME / ".cursor/skills", HOME / ".gemini/skills", HOME / ".factory/skills"]
