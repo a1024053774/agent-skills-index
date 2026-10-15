@@ -4,6 +4,29 @@ A catalog of reusable Skills maintained by `a1024053774`. Each Skill keeps its o
 repository and release history; this repository provides one stable discovery and installation
 entry point without copying Skill code or creating synchronization drift.
 
+The catalog contains **9 Skills from 7 source repositories**. Last reviewed: **2026-10-15**.
+The source revisions below matched each repository's remote `main` on that date. Archived
+copies are not catalog entries.
+
+## Choose a Skill
+
+| Situation | Skill | Boundary |
+| --- | --- | --- |
+| A consequential direction depends on an unverified fact | `reality-first-engineering` | Settle the fact with a small probe before broad implementation; skip routine, known work |
+| The user explicitly asks for grilling | `grilling` | Compare choices, track assumptions behind accepted recommendations, and stop at a human-confirmed handoff |
+| A long-running project needs durable decisions and current docs | `project-map` | Use an existing map or create one when asked; plan the next two or three vertical build tickets and work one per session |
+| A bug fix or behavior change needs credible regression evidence | `evidence-first-testing` | Preserve the failure and show the same signal rejects bad behavior and accepts the repair |
+| A frozen candidate adds structural risk | `design-integrity-review` | Review in a fresh, read-only context; route acceptance-surface changes to behavioral review |
+| Tests, evals, generated artifacts, or an Agent release need acceptance review | `behavioral-acceptance-review` | Require an independent oracle and evidence from the boundary being claimed |
+| The reader needs to understand how an existing codebase runs | `architecture-flow-map` | Trace current behavior into `map.json` and an interactive HTML map; do not draw a proposed design as fact |
+| A document needs drafting, polishing, or translation | `document-writing` | Preserve meaning, qualifications, and encoding across languages |
+| A web frontend must be built or reviewed to ship | `frontend-production` | Start from the audience, primary action, and real content; keep the project's tokens; review read-only with P0–P3 and evidence limits |
+
+Use the relevant Skills, not a mandatory nine-step pipeline. `grilling` settles human decisions;
+`reality-first-engineering` settles uncertain facts; `project-map` holds persistent project state.
+`evidence-first-testing` supplies regression evidence during implementation, while the two review
+Skills inspect a frozen candidate at a completion checkpoint. A handoff is not authorization to build.
+
 ## Catalog
 
 ### Reality and evidence
@@ -18,16 +41,16 @@ Source repository: [reality-evidence-engineering](https://github.com/a1024053774
 ### Design integrity and acceptance
 
 - [`design-integrity-review`](https://github.com/a1024053774/design-integrity-guardrails/tree/main/design-integrity-review)
-  — review one frozen change once for structural shortcuts, or route evaluation changes to acceptance review.
+  — review one frozen change in a fresh, read-only context for structural shortcuts, or route acceptance-surface changes to behavioral review.
 - [`behavioral-acceptance-review`](https://github.com/a1024053774/design-integrity-guardrails/tree/main/behavioral-acceptance-review)
-  — audit whether tests, evals, and user-visible workflows provide independent evidence, including release verdicts for Agent products.
+  — independently audit tests, evals, generated artifacts, and user-visible workflows, including release verdicts for Agent products.
 
 Source repository: [design-integrity-guardrails](https://github.com/a1024053774/design-integrity-guardrails)
 
 ### Decisions and project state
 
 - [`grilling`](https://github.com/a1024053774/grilling-skill/tree/main/grilling)
-  — stress-test a plan or decision in rounds until the way forward is clear, then hand off.
+  — when explicitly invoked, stress-test decisions in rounds, track the assumptions behind accepted recommendations, and stop at a human-confirmed handoff.
 - [`project-map`](https://github.com/a1024053774/project-map-skill/tree/main/project-map)
   — keep a project's decisions, tickets, glossary, and living docs in a small local map; carry work from
   decisions to a spec, tracer-bullet build tickets, and one ticket per session; catch stale docs.
@@ -37,8 +60,8 @@ Source repositories: [grilling-skill](https://github.com/a1024053774/grilling-sk
 ### Understanding a codebase
 
 - [`architecture-flow-map`](https://github.com/a1024053774/architecture-flow-map-skill/tree/main/architecture-flow-map)
-  — trace how an existing codebase actually runs into an interactive map: modules, business objects, and key
-  scenarios replayed step by step, with every code reference verified against the repository.
+  — trace current modules, business objects, and 3–5 scenarios into `map.json` and an interactive HTML map;
+  validate code references during the build and check the viewer in a browser.
 
 Source repository: [architecture-flow-map-skill](https://github.com/a1024053774/architecture-flow-map-skill)
 
@@ -51,37 +74,55 @@ Source repository: [document-writing-skill](https://github.com/a1024053774/docum
 
 ### Frontend
 
-- [`frontend-less-ai-tone`](https://github.com/a1024053774/frontend-less-ai-tone-skill/tree/main/frontend-less-ai-tone)
-  — make frontend work look and read like a specific product, not a generic AI landing page.
-- [`same-visual-family`](https://github.com/a1024053774/same-visual-family-skill/tree/main/same-visual-family)
-  — keep composed UI in one visual family; drop-in skinned blocks fail, restyled structure can pass.
+- [`frontend-production`](https://github.com/a1024053774/frontend-production-skill/tree/main/frontend-production)
+  — build and review web frontends to ship: product voice and visual direction, one visual family,
+  motion, mobile web, and page-by-page engineering review. Replaces `frontend-less-ai-tone` and `same-visual-family`, whose repositories are archived.
 
-Source repositories: [frontend-less-ai-tone-skill](https://github.com/a1024053774/frontend-less-ai-tone-skill) · [same-visual-family-skill](https://github.com/a1024053774/same-visual-family-skill)
+Source repository: [frontend-production-skill](https://github.com/a1024053774/frontend-production-skill)
 
 ## Install examples
 
 Install one Skill globally:
 
 ```bash
-npx skills add a1024053774/grilling-skill@grilling -g -y
+npx skills add a1024053774/grilling-skill --skill grilling -g -y
 ```
 
 Install a Skill from the other source repositories:
 
 ```bash
-npx skills add a1024053774/reality-evidence-engineering@reality-first-engineering -g -y
-npx skills add a1024053774/reality-evidence-engineering@evidence-first-testing -g -y
-npx skills add a1024053774/design-integrity-guardrails@design-integrity-review -g -y
-npx skills add a1024053774/design-integrity-guardrails@behavioral-acceptance-review -g -y
-npx skills add a1024053774/project-map-skill@project-map -g -y
-npx skills add a1024053774/architecture-flow-map-skill@architecture-flow-map -g -y
-npx skills add a1024053774/document-writing-skill@document-writing -g -y
-npx skills add a1024053774/frontend-less-ai-tone-skill@frontend-less-ai-tone -g -y
-npx skills add a1024053774/same-visual-family-skill@same-visual-family -g -y
+npx skills add a1024053774/reality-evidence-engineering --skill reality-first-engineering -g -y
+npx skills add a1024053774/reality-evidence-engineering --skill evidence-first-testing -g -y
+npx skills add a1024053774/design-integrity-guardrails --skill design-integrity-review -g -y
+npx skills add a1024053774/design-integrity-guardrails --skill behavioral-acceptance-review -g -y
+npx skills add a1024053774/project-map-skill --skill project-map -g -y
+npx skills add a1024053774/architecture-flow-map-skill --skill architecture-flow-map -g -y
+npx skills add a1024053774/document-writing-skill --skill document-writing -g -y
+npx skills add a1024053774/frontend-production-skill --skill frontend-production -g -y
 ```
 
 The machine-readable catalog is [`skills.json`](skills.json). Keep this index limited to links,
 metadata, and install coordinates; changes to Skill behavior belong in the canonical source repo.
+
+These examples use the explicit `--skill` selector documented by the
+[Skills CLI](https://github.com/vercel-labs/skills). They install from the source repository's
+current default branch, not from the reviewed snapshot below.
+
+## Reviewed source revisions
+
+These are Git snapshots, not semantic release versions. `reviewed_at` records the catalog review
+date, and each entry's `source_revision` records the full source-repository commit. Updating these
+fields does not pin installation or certify a Skill's runtime behavior.
+
+| Source repository | Reviewed commit | Skills |
+| --- | --- | --- |
+| [reality-evidence-engineering](https://github.com/a1024053774/reality-evidence-engineering) | [`82819b7`](https://github.com/a1024053774/reality-evidence-engineering/tree/82819b7cda870fab6bb34d8d76fd18d20fdf6e60) | `reality-first-engineering`, `evidence-first-testing` |
+| [design-integrity-guardrails](https://github.com/a1024053774/design-integrity-guardrails) | [`3b7694b`](https://github.com/a1024053774/design-integrity-guardrails/tree/3b7694b28db1a063da39e3ca3e3ddb096dd18385) | `design-integrity-review`, `behavioral-acceptance-review` |
+| [grilling-skill](https://github.com/a1024053774/grilling-skill) | [`f1e01bb`](https://github.com/a1024053774/grilling-skill/tree/f1e01bb6b94deb15769eee552125535c2c80ef42) | `grilling` |
+| [project-map-skill](https://github.com/a1024053774/project-map-skill) | [`c16779a`](https://github.com/a1024053774/project-map-skill/tree/c16779a296f43a91b20da2cabbe70223a7569f9a) | `project-map` |
+| [architecture-flow-map-skill](https://github.com/a1024053774/architecture-flow-map-skill) | [`8b3a0c5`](https://github.com/a1024053774/architecture-flow-map-skill/tree/8b3a0c5df60ee762461b39613614741b2f715f4b) | `architecture-flow-map` |
+| [document-writing-skill](https://github.com/a1024053774/document-writing-skill) | [`5fc4ea0`](https://github.com/a1024053774/document-writing-skill/tree/5fc4ea0cacfb9d1dd331a772ee0b34120799ec48) | `document-writing` |
+| [frontend-production-skill](https://github.com/a1024053774/frontend-production-skill) | [`b291300`](https://github.com/a1024053774/frontend-production-skill/tree/b2913002abd3767c1e9272201568695e58232e48) | `frontend-production` |
 
 ## Local checkouts and the skill hub
 

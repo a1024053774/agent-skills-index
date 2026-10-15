@@ -1,6 +1,7 @@
 {
   "catalog_version": 1,
   "maintainer": "a1024053774",
+  "reviewed_at": "2026-10-15",
   "skills": [
     {
       "name": "reality-first-engineering",
@@ -8,7 +9,8 @@
       "description": "Establish a fact-backed direction gate before consequential implementation.",
       "repository": "https://github.com/a1024053774/reality-evidence-engineering",
       "path": "reality-first-engineering",
-      "install": "npx skills add a1024053774/reality-evidence-engineering@reality-first-engineering -g -y"
+      "install": "npx skills add a1024053774/reality-evidence-engineering --skill reality-first-engineering -g -y",
+      "source_revision": "82819b7cda870fab6bb34d8d76fd18d20fdf6e60"
     },
     {
       "name": "evidence-first-testing",
@@ -16,31 +18,35 @@
       "description": "Preserve red-state evidence and prove that tests detect the intended behavior.",
       "repository": "https://github.com/a1024053774/reality-evidence-engineering",
       "path": "evidence-first-testing",
-      "install": "npx skills add a1024053774/reality-evidence-engineering@evidence-first-testing -g -y"
+      "install": "npx skills add a1024053774/reality-evidence-engineering --skill evidence-first-testing -g -y",
+      "source_revision": "82819b7cda870fab6bb34d8d76fd18d20fdf6e60"
     },
     {
       "name": "design-integrity-review",
       "category": "design-integrity-and-acceptance",
-      "description": "Review one frozen change once for structural shortcuts, or route evaluation changes to acceptance review.",
+      "description": "Review one frozen change in a fresh, read-only context for structural shortcuts, or route acceptance-surface changes to behavioral review.",
       "repository": "https://github.com/a1024053774/design-integrity-guardrails",
       "path": "design-integrity-review",
-      "install": "npx skills add a1024053774/design-integrity-guardrails@design-integrity-review -g -y"
+      "install": "npx skills add a1024053774/design-integrity-guardrails --skill design-integrity-review -g -y",
+      "source_revision": "3b7694b28db1a063da39e3ca3e3ddb096dd18385"
     },
     {
       "name": "behavioral-acceptance-review",
       "category": "design-integrity-and-acceptance",
-      "description": "Audit whether tests, evals, and user-visible workflows provide independent evidence.",
+      "description": "Independently audit tests, evals, generated artifacts, and user-visible workflows, including release verdicts for Agent products.",
       "repository": "https://github.com/a1024053774/design-integrity-guardrails",
       "path": "behavioral-acceptance-review",
-      "install": "npx skills add a1024053774/design-integrity-guardrails@behavioral-acceptance-review -g -y"
+      "install": "npx skills add a1024053774/design-integrity-guardrails --skill behavioral-acceptance-review -g -y",
+      "source_revision": "3b7694b28db1a063da39e3ca3e3ddb096dd18385"
     },
     {
       "name": "grilling",
       "category": "decision-making",
-      "description": "Stress-test a plan or decision in rounds while persisting the decision tree and current frontier.",
+      "description": "When explicitly invoked, stress-test decisions in rounds, track the assumptions behind accepted recommendations, and stop at a human-confirmed handoff.",
       "repository": "https://github.com/a1024053774/grilling-skill",
       "path": "grilling",
-      "install": "npx skills add a1024053774/grilling-skill@grilling -g -y",
+      "install": "npx skills add a1024053774/grilling-skill --skill grilling -g -y",
+      "source_revision": "f1e01bb6b94deb15769eee552125535c2c80ef42",
       "maxBytes": 11264
     },
     {
@@ -49,15 +55,17 @@
       "description": "Keep a project's decisions, tickets, glossary, and living docs in a small local map; carry work from decisions to a spec, tracer-bullet build tickets, and one ticket per session; catch stale docs.",
       "repository": "https://github.com/a1024053774/project-map-skill",
       "path": "project-map",
-      "install": "npx skills add a1024053774/project-map-skill@project-map -g -y"
+      "install": "npx skills add a1024053774/project-map-skill --skill project-map -g -y",
+      "source_revision": "c16779a296f43a91b20da2cabbe70223a7569f9a"
     },
     {
       "name": "architecture-flow-map",
       "category": "codebase-understanding",
-      "description": "Trace how an existing codebase runs into an interactive map with step-by-step scenarios and verified code references.",
+      "description": "Trace current modules, business objects, and 3–5 scenarios into map.json and an interactive HTML map; validate code references during the build and check the viewer in a browser.",
       "repository": "https://github.com/a1024053774/architecture-flow-map-skill",
       "path": "architecture-flow-map",
-      "install": "npx skills add a1024053774/architecture-flow-map-skill@architecture-flow-map -g -y"
+      "install": "npx skills add a1024053774/architecture-flow-map-skill --skill architecture-flow-map -g -y",
+      "source_revision": "8b3a0c5df60ee762461b39613614741b2f715f4b"
     },
     {
       "name": "document-writing",
@@ -65,23 +73,17 @@
       "description": "Draft, polish, or translate documents with natural target-language prose, semantic fidelity, and encoding protection.",
       "repository": "https://github.com/a1024053774/document-writing-skill",
       "path": "document-writing",
-      "install": "npx skills add a1024053774/document-writing-skill@document-writing -g -y"
+      "install": "npx skills add a1024053774/document-writing-skill --skill document-writing -g -y",
+      "source_revision": "5fc4ea0cacfb9d1dd331a772ee0b34120799ec48"
     },
     {
-      "name": "frontend-less-ai-tone",
+      "name": "frontend-production",
       "category": "frontend",
-      "description": "Make frontend work look and read like a specific product, not a generic AI landing page.",
-      "repository": "https://github.com/a1024053774/frontend-less-ai-tone-skill",
-      "path": "frontend-less-ai-tone",
-      "install": "npx skills add a1024053774/frontend-less-ai-tone-skill@frontend-less-ai-tone -g -y"
-    },
-    {
-      "name": "same-visual-family",
-      "category": "frontend",
-      "description": "Keep composed UI in one visual family. Drop-in skinned blocks fail; restyled structure can pass.",
-      "repository": "https://github.com/a1024053774/same-visual-family-skill",
-      "path": "same-visual-family",
-      "install": "npx skills add a1024053774/same-visual-family-skill@same-visual-family -g -y"
+      "description": "Build and review web frontends to ship: product voice and visual direction, one visual family, motion, mobile web, and page-by-page engineering review.",
+      "repository": "https://github.com/a1024053774/frontend-production-skill",
+      "path": "frontend-production",
+      "install": "npx skills add a1024053774/frontend-production-skill --skill frontend-production -g -y",
+      "source_revision": "b2913002abd3767c1e9272201568695e58232e48"
     }
   ]
 }
