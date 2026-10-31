@@ -77,6 +77,16 @@
       "source_revision": "5fc4ea0cacfb9d1dd331a772ee0b34120799ec48"
     },
     {
+      "name": "asd-ste100",
+      "category": "writing",
+      "description": "When explicitly invoked, rewrite a given English or Simplified Chinese text into ASD-STE100-style controlled language so a model cannot misread it, keeping every fact and hedge.",
+      "repository": "https://github.com/a1024053774/asd-ste100",
+      "path": ".",
+      "install": "npx skills add a1024053774/asd-ste100 --skill asd-ste100 -g -y",
+      "source_revision": "d2f2d775c35c7aee861c96ed7e46569c993a8c69",
+      "maxBytes": 18432
+    },
+    {
       "name": "frontend-production",
       "category": "frontend",
       "description": "Build and review web frontends to ship: product voice and visual direction, one visual family, motion, mobile web, and page-by-page engineering review.",

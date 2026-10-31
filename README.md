@@ -4,8 +4,9 @@ A catalog of reusable Skills maintained by `a1024053774`. Each Skill keeps its o
 repository and release history; this repository provides one stable discovery and installation
 entry point without copying Skill code or creating synchronization drift.
 
-The catalog contains **9 Skills from 7 source repositories**. Last reviewed: **2026-10-15**.
-The source revisions below matched each repository's remote `main` on that date. Archived
+The catalog contains **10 Skills from 8 source repositories**. Last reviewed: **2026-10-15**.
+The source revisions below matched each repository's remote `main` on that date, except
+`asd-ste100`, added on 2026-10-31: its revision matched its remote `master` that day. Archived
 copies are not catalog entries.
 
 ## Choose a Skill
@@ -20,9 +21,10 @@ copies are not catalog entries.
 | Tests, evals, generated artifacts, or an Agent release need acceptance review | `behavioral-acceptance-review` | Require an independent oracle and evidence from the boundary being claimed |
 | The reader needs to understand how an existing codebase runs | `architecture-flow-map` | Trace current behavior into `map.json` and an interactive HTML map; do not draw a proposed design as fact |
 | A document needs drafting, polishing, or translation | `document-writing` | Preserve meaning, qualifications, and encoding across languages |
+| The user asks for a given text to be made unambiguous for a model or a non-native reader | `asd-ste100` | Run only when asked; rewrite the given English or Simplified Chinese text and keep every fact and hedge; never restyle the agent's own output |
 | A web frontend must be built or reviewed to ship | `frontend-production` | Start from the audience, primary action, and real content; keep the project's tokens; review read-only with P0–P3 and evidence limits |
 
-Use the relevant Skills, not a mandatory nine-step pipeline. `grilling` settles human decisions;
+Use the relevant Skills, not a mandatory ten-step pipeline. `grilling` settles human decisions;
 `reality-first-engineering` settles uncertain facts; `project-map` holds persistent project state.
 `evidence-first-testing` supplies regression evidence during implementation, while the two review
 Skills inspect a frozen candidate at a completion checkpoint. A handoff is not authorization to build.
@@ -69,8 +71,13 @@ Source repository: [architecture-flow-map-skill](https://github.com/a1024053774/
 
 - [`document-writing`](https://github.com/a1024053774/document-writing-skill/tree/main/document-writing)
   — draft, polish, or translate documents with natural target-language prose, semantic fidelity, and encoding protection.
+- [`asd-ste100`](https://github.com/a1024053774/asd-ste100)
+  — when explicitly invoked, rewrite a given English or Simplified Chinese text into ASD-STE100-style controlled
+  language so a model cannot misread it, keeping every fact and hedge. A fork of
+  [danyuchn/asd-ste100-skill](https://github.com/danyuchn/asd-ste100-skill) with Chinese rules adapted from
+  [dualface/ste-zh](https://github.com/dualface/ste-zh).
 
-Source repository: [document-writing-skill](https://github.com/a1024053774/document-writing-skill)
+Source repositories: [document-writing-skill](https://github.com/a1024053774/document-writing-skill) · [asd-ste100](https://github.com/a1024053774/asd-ste100)
 
 ### Frontend
 
@@ -98,6 +105,7 @@ npx skills add a1024053774/design-integrity-guardrails --skill behavioral-accept
 npx skills add a1024053774/project-map-skill --skill project-map -g -y
 npx skills add a1024053774/architecture-flow-map-skill --skill architecture-flow-map -g -y
 npx skills add a1024053774/document-writing-skill --skill document-writing -g -y
+npx skills add a1024053774/asd-ste100 --skill asd-ste100 -g -y
 npx skills add a1024053774/frontend-production-skill --skill frontend-production -g -y
 ```
 
@@ -122,6 +130,7 @@ fields does not pin installation or certify a Skill's runtime behavior.
 | [project-map-skill](https://github.com/a1024053774/project-map-skill) | [`c16779a`](https://github.com/a1024053774/project-map-skill/tree/c16779a296f43a91b20da2cabbe70223a7569f9a) | `project-map` |
 | [architecture-flow-map-skill](https://github.com/a1024053774/architecture-flow-map-skill) | [`8b3a0c5`](https://github.com/a1024053774/architecture-flow-map-skill/tree/8b3a0c5df60ee762461b39613614741b2f715f4b) | `architecture-flow-map` |
 | [document-writing-skill](https://github.com/a1024053774/document-writing-skill) | [`5fc4ea0`](https://github.com/a1024053774/document-writing-skill/tree/5fc4ea0cacfb9d1dd331a772ee0b34120799ec48) | `document-writing` |
+| [asd-ste100](https://github.com/a1024053774/asd-ste100) | [`d2f2d77`](https://github.com/a1024053774/asd-ste100/tree/d2f2d775c35c7aee861c96ed7e46569c993a8c69) | `asd-ste100` |
 | [frontend-production-skill](https://github.com/a1024053774/frontend-production-skill) | [`b291300`](https://github.com/a1024053774/frontend-production-skill/tree/b2913002abd3767c1e9272201568695e58232e48) | `frontend-production` |
 
 ## Local checkouts and the skill hub
@@ -159,7 +168,7 @@ bash tests/check_skill_budget_e2e.sh                          # acceptance run a
 
 | Check | Fails when |
 | --- | --- |
-| `size` | `SKILL.md` is over `--max-bytes` (default 8192: the files of 9 KB and up were the ones that needed restructuring, those of 3–5 KB were fine), or over the Skill's own `maxBytes` in `skills.json` when it has one. `grilling` has 11264: its question types, map format, and asking rules are used every round, so moving them to `references/` would only make each round reread them |
+| `size` | `SKILL.md` is over `--max-bytes` (default 8192: the files of 9 KB and up were the ones that needed restructuring, those of 3–5 KB were fine), or over the Skill's own `maxBytes` in `skills.json` when it has one. `grilling` has 11264: its question types, map format, and asking rules are used every round, so moving them to `references/` would only make each round reread them. `asd-ste100` has 18432: it is a fork that keeps upstream's `SKILL.md` layout so that upstream changes still merge, so it has not been restructured to the default budget |
 | `frontmatter` | there is no frontmatter, `name` is not the folder name, or `description` is empty or over 1024 characters |
 | `orphan` | a file under `references/` is not linked from `SKILL.md` itself, by a Markdown link or a code span holding its path |
 | `link` | a relative Markdown link (inline, image, or reference definition) points at nothing |
