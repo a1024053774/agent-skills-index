@@ -6,8 +6,9 @@ entry point without copying Skill code or creating synchronization drift.
 
 The catalog contains **10 Skills from 8 source repositories**. Last reviewed: **2026-10-15**.
 The source revisions below matched each repository's remote `main` on that date, except
-`asd-ste100`, added on 2026-10-31: its revision matched its remote `master` that day. Archived
-copies are not catalog entries.
+`asd-ste100`, added on 2026-10-31: its revision matched its remote `master` that day; and
+`reality-evidence-engineering` and `design-integrity-guardrails`, updated on 2026-11-03: their
+revisions matched their remote `main` that day. Archived copies are not catalog entries.
 
 ## Choose a Skill
 
@@ -16,9 +17,9 @@ copies are not catalog entries.
 | A consequential direction depends on an unverified fact | `reality-first-engineering` | Settle the fact with a small probe before broad implementation; skip routine, known work |
 | The user explicitly asks for grilling | `grilling` | Compare choices, track assumptions behind accepted recommendations, and stop at a human-confirmed handoff |
 | A long-running project needs durable decisions and current docs | `project-map` | Use an existing map or create one when asked; plan the next two or three vertical build tickets and work one per session |
-| A bug fix or behavior change needs credible regression evidence | `evidence-first-testing` | Preserve the failure and show the same signal rejects bad behavior and accepts the repair |
-| A frozen candidate adds structural risk | `design-integrity-review` | Review in a fresh, read-only context; route acceptance-surface changes to behavioral review |
-| Tests, evals, generated artifacts, or an Agent release need acceptance review | `behavioral-acceptance-review` | Require an independent oracle and evidence from the boundary being claimed |
+| A bug fix or behavior change needs credible regression evidence | `evidence-first-testing` | Preserve the failure and show the same signal rejects bad behavior and accepts the repair; reproduce review findings before fixing them; search ordering contracts in a small scope |
+| A change you made adds structural risk | `design-integrity-review` | Self-check before reporting done, in the implementing agent's own context; route acceptance-surface changes to behavioral review |
+| Tests, evals, generated artifacts, or an Agent release need acceptance review | `behavioral-acceptance-review` | Require an independent oracle, evidence from the boundary being claimed, and an executed counterexample for each failure |
 | The reader needs to understand how an existing codebase runs | `architecture-flow-map` | Trace current behavior into `map.json` and an interactive HTML map; do not draw a proposed design as fact |
 | A document needs drafting, polishing, or translation | `document-writing` | Preserve meaning, qualifications, and encoding across languages |
 | The user asks for a given text to be made unambiguous for a model or a non-native reader | `asd-ste100` | Run only when asked; rewrite the given English or Simplified Chinese text and keep every fact and hedge; never restyle the agent's own output |
@@ -26,8 +27,10 @@ copies are not catalog entries.
 
 Use the relevant Skills, not a mandatory ten-step pipeline. `grilling` settles human decisions;
 `reality-first-engineering` settles uncertain facts; `project-map` holds persistent project state.
-`evidence-first-testing` supplies regression evidence during implementation, while the two review
-Skills inspect a frozen candidate at a completion checkpoint. A handoff is not authorization to build.
+`evidence-first-testing` supplies regression evidence during implementation. At a completion
+checkpoint, `design-integrity-review` is the implementing agent's own structural self-check, and
+`behavioral-acceptance-review` audits a frozen candidate in a fresh context. A handoff is not
+authorization to build.
 
 ## Catalog
 
@@ -43,7 +46,7 @@ Source repository: [reality-evidence-engineering](https://github.com/a1024053774
 ### Design integrity and acceptance
 
 - [`design-integrity-review`](https://github.com/a1024053774/design-integrity-guardrails/tree/main/design-integrity-review)
-  — review one frozen change in a fresh, read-only context for structural shortcuts, or route acceptance-surface changes to behavioral review.
+  — self-check your own change for structural shortcuts before reporting it done, or route acceptance-surface changes to behavioral review.
 - [`behavioral-acceptance-review`](https://github.com/a1024053774/design-integrity-guardrails/tree/main/behavioral-acceptance-review)
   — independently audit tests, evals, generated artifacts, and user-visible workflows, including release verdicts for Agent products.
 
@@ -124,8 +127,8 @@ fields does not pin installation or certify a Skill's runtime behavior.
 
 | Source repository | Reviewed commit | Skills |
 | --- | --- | --- |
-| [reality-evidence-engineering](https://github.com/a1024053774/reality-evidence-engineering) | [`82819b7`](https://github.com/a1024053774/reality-evidence-engineering/tree/82819b7cda870fab6bb34d8d76fd18d20fdf6e60) | `reality-first-engineering`, `evidence-first-testing` |
-| [design-integrity-guardrails](https://github.com/a1024053774/design-integrity-guardrails) | [`3b7694b`](https://github.com/a1024053774/design-integrity-guardrails/tree/3b7694b28db1a063da39e3ca3e3ddb096dd18385) | `design-integrity-review`, `behavioral-acceptance-review` |
+| [reality-evidence-engineering](https://github.com/a1024053774/reality-evidence-engineering) | [`55e591a`](https://github.com/a1024053774/reality-evidence-engineering/tree/55e591a5d7a5871914cf1542d4b73e099572af16) | `reality-first-engineering`, `evidence-first-testing` |
+| [design-integrity-guardrails](https://github.com/a1024053774/design-integrity-guardrails) | [`e2b3402`](https://github.com/a1024053774/design-integrity-guardrails/tree/e2b3402c2e16d08f60ec9ff73ad31b14cd955f5c) | `design-integrity-review`, `behavioral-acceptance-review` |
 | [grilling-skill](https://github.com/a1024053774/grilling-skill) | [`f1e01bb`](https://github.com/a1024053774/grilling-skill/tree/f1e01bb6b94deb15769eee552125535c2c80ef42) | `grilling` |
 | [project-map-skill](https://github.com/a1024053774/project-map-skill) | [`c16779a`](https://github.com/a1024053774/project-map-skill/tree/c16779a296f43a91b20da2cabbe70223a7569f9a) | `project-map` |
 | [architecture-flow-map-skill](https://github.com/a1024053774/architecture-flow-map-skill) | [`8b3a0c5`](https://github.com/a1024053774/architecture-flow-map-skill/tree/8b3a0c5df60ee762461b39613614741b2f715f4b) | `architecture-flow-map` |

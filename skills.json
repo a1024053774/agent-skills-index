@@ -10,7 +10,7 @@
       "repository": "https://github.com/a1024053774/reality-evidence-engineering",
       "path": "reality-first-engineering",
       "install": "npx skills add a1024053774/reality-evidence-engineering --skill reality-first-engineering -g -y",
-      "source_revision": "82819b7cda870fab6bb34d8d76fd18d20fdf6e60"
+      "source_revision": "55e591a5d7a5871914cf1542d4b73e099572af16"
     },
     {
       "name": "evidence-first-testing",
@@ -19,16 +19,16 @@
       "repository": "https://github.com/a1024053774/reality-evidence-engineering",
       "path": "evidence-first-testing",
       "install": "npx skills add a1024053774/reality-evidence-engineering --skill evidence-first-testing -g -y",
-      "source_revision": "82819b7cda870fab6bb34d8d76fd18d20fdf6e60"
+      "source_revision": "55e591a5d7a5871914cf1542d4b73e099572af16"
     },
     {
       "name": "design-integrity-review",
       "category": "design-integrity-and-acceptance",
-      "description": "Review one frozen change in a fresh, read-only context for structural shortcuts, or route acceptance-surface changes to behavioral review.",
+      "description": "Self-check your own change for structural shortcuts before reporting it done, or route acceptance-surface changes to behavioral review.",
       "repository": "https://github.com/a1024053774/design-integrity-guardrails",
       "path": "design-integrity-review",
       "install": "npx skills add a1024053774/design-integrity-guardrails --skill design-integrity-review -g -y",
-      "source_revision": "3b7694b28db1a063da39e3ca3e3ddb096dd18385"
+      "source_revision": "e2b3402c2e16d08f60ec9ff73ad31b14cd955f5c"
     },
     {
       "name": "behavioral-acceptance-review",
@@ -37,7 +37,7 @@
       "repository": "https://github.com/a1024053774/design-integrity-guardrails",
       "path": "behavioral-acceptance-review",
       "install": "npx skills add a1024053774/design-integrity-guardrails --skill behavioral-acceptance-review -g -y",
-      "source_revision": "3b7694b28db1a063da39e3ca3e3ddb096dd18385"
+      "source_revision": "e2b3402c2e16d08f60ec9ff73ad31b14cd955f5c"
     },
     {
       "name": "grilling",
