@@ -49,8 +49,8 @@ flowchart TB
     rv -.-> bar
     impl -- "完成检查点" --> dir
     dir -- "验收面有改动" --> bar
-    dir -- "结论：先复现再修" --> ef
-    bar -- "结论：先复现再修" --> ef
+    dir -- "结论：先复现再修" --> impl
+    bar -- "结论：先复现再修" --> impl
     dir --> ci
     bar --> ci
 

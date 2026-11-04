@@ -51,8 +51,8 @@ flowchart TB
     rv -.-> bar
     impl -- "completion checkpoint" --> dir
     dir -- "acceptance surface changed" --> bar
-    dir -- "findings: reproduce first" --> ef
-    bar -- "findings: reproduce first" --> ef
+    dir -- "findings: reproduce, then fix" --> impl
+    bar -- "findings: reproduce, then fix" --> impl
     dir --> ci
     bar --> ci
 
