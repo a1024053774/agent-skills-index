@@ -1,14 +1,74 @@
 # Agent Skills Index
 
+English · [简体中文](README.zh-CN.md)
+
 A catalog of reusable Skills maintained by `a1024053774`. Each Skill keeps its own canonical
 repository and release history; this repository provides one stable discovery and installation
-entry point without copying Skill code or creating synchronization drift.
+entry point without copying Skill code or creating synchronization drift. It also holds the two
+[hooks](#hooks) that run the Skills' checks, because they call Skills from more than one repository.
 
-The catalog contains **10 Skills from 8 source repositories**. Last reviewed: **2026-10-15**.
+The catalog contains **11 Skills from 8 source repositories**. Last reviewed: **2026-10-15**.
 The source revisions below matched each repository's remote `main` on that date, except
 `asd-ste100`, added on 2026-10-31: its revision matched its remote `master` that day; and
-`reality-evidence-engineering` and `design-integrity-guardrails`, updated on 2026-11-03: their
-revisions matched their remote `main` that day. Archived copies are not catalog entries.
+`reality-evidence-engineering` and `design-integrity-guardrails` (which added `review-md`),
+updated on 2026-11-04: their revisions matched their remote `main` that day. Archived copies are
+not catalog entries.
+
+## How the Skills work together
+
+Each box is one Skill or hook and the one job it owns. Solid arrows are the usual order of work;
+dotted arrows are what a Skill or hook reads.
+
+```mermaid
+flowchart TB
+    req(["User request"])
+    gr["grilling<br/>settles decisions in rounds, then hands off<br/>only when asked"]
+    pm[("project-map<br/>decisions, tickets, glossary, living docs")]
+    rf["reality-first-engineering<br/>settles facts before building<br/>PASS / NO_GO / BLOCKED / INCOMPLETE"]
+    impl["Implement the smallest change<br/>tracer bullet across layers"]
+    ef["evidence-first-testing<br/>red, then green; development tests change,<br/>acceptance tests stay frozen"]
+    rmd["review-md<br/>drafts REVIEW.md with the owner<br/>only when asked"]
+    rv[("REVIEW.md<br/>acceptance surfaces, sensitive paths,<br/>what failure looks like")]
+    stop{{"stop_checks.py, on SessionStart and Stop<br/>design_integrity.py --base session start"}}
+    spin{{"spin_signals.py, on tool events<br/>same test fails 3 times with edits between"}}
+    dir["design-integrity-review<br/>clean context: structural shortcuts<br/>against goal, non-goals, acceptance"]
+    bar["behavioral-acceptance-review<br/>clean context: independent oracle,<br/>executed counterexample"]
+    ci(["Integration point<br/>full suite, in CI when it runs there"])
+
+    req -- "asked to grill" --> gr
+    gr --> pm
+    req -- "a fact could change the direction" --> rf
+    req -- "small and known" --> impl
+    pm --> impl
+    rf -- PASS --> impl
+    impl <--> ef
+    impl --> stop
+    stop -- "new exception boundary or changed<br/>acceptance surface: block once" --> impl
+    spin -. "reminder to the model" .-> impl
+    rmd --> rv
+    rv -. "frozen globs" .-> stop
+    rv -.-> dir
+    rv -.-> bar
+    impl -- "completion checkpoint" --> dir
+    dir -- "acceptance surface changed" --> bar
+    dir -- "findings: reproduce first" --> ef
+    bar -- "findings: reproduce first" --> ef
+    dir --> ci
+    bar --> ci
+
+    subgraph any ["Any time the task calls for it"]
+        dw["document-writing<br/>draft, polish, translate"]
+        ste["asd-ste100<br/>unambiguous rewrite, only when asked"]
+        afm["architecture-flow-map<br/>how an existing codebase runs"]
+        fp["frontend-production<br/>build and review web UI to ship"]
+    end
+```
+
+Reviews run in a fresh context and get the task's goal, non-goals, and acceptance condition, not
+the implementer's rationale; a reviewer that inherits the rationale tends to confirm it. Review
+depth is set by the change, not the author: docs and copy need none, ordinary code follows the
+routing below, and sensitive paths or acceptance surfaces in `REVIEW.md` get both reviews and the
+owner's approval.
 
 ## Choose a Skill
 
@@ -18,18 +78,19 @@ revisions matched their remote `main` that day. Archived copies are not catalog 
 | The user explicitly asks for grilling | `grilling` | Compare choices, track assumptions behind accepted recommendations, and stop at a human-confirmed handoff |
 | A long-running project needs durable decisions and current docs | `project-map` | Use an existing map or create one when asked; plan the next two or three vertical build tickets and work one per session |
 | A bug fix or behavior change needs credible regression evidence | `evidence-first-testing` | Preserve the failure and show the same signal rejects bad behavior and accepts the repair; reproduce review findings before fixing them; search ordering contracts in a small scope |
-| A change you made adds structural risk | `design-integrity-review` | Self-check before reporting done, in the implementing agent's own context; route acceptance-surface changes to behavioral review |
+| A change adds structural risk | `design-integrity-review` | Review once in a fresh context against the goal, non-goals, and acceptance condition; each failure names an input that reaches it; route acceptance-surface changes to behavioral review |
 | Tests, evals, generated artifacts, or an Agent release need acceptance review | `behavioral-acceptance-review` | Require an independent oracle, evidence from the boundary being claimed, and an executed counterexample for each failure |
+| The user asks for a repository's `REVIEW.md` | `review-md` | Run only when asked; list candidates from the code, ask the owner only what the code cannot answer, save after approval |
 | The reader needs to understand how an existing codebase runs | `architecture-flow-map` | Trace current behavior into `map.json` and an interactive HTML map; do not draw a proposed design as fact |
 | A document needs drafting, polishing, or translation | `document-writing` | Preserve meaning, qualifications, and encoding across languages |
 | The user asks for a given text to be made unambiguous for a model or a non-native reader | `asd-ste100` | Run only when asked; rewrite the given English or Simplified Chinese text and keep every fact and hedge; never restyle the agent's own output |
 | A web frontend must be built or reviewed to ship | `frontend-production` | Start from the audience, primary action, and real content; keep the project's tokens; review read-only with P0–P3 and evidence limits |
 
-Use the relevant Skills, not a mandatory ten-step pipeline. `grilling` settles human decisions;
+Use the relevant Skills, not a mandatory eleven-step pipeline. `grilling` settles human decisions;
 `reality-first-engineering` settles uncertain facts; `project-map` holds persistent project state.
 `evidence-first-testing` supplies regression evidence during implementation. At a completion
-checkpoint, `design-integrity-review` is the implementing agent's own structural self-check, and
-`behavioral-acceptance-review` audits a frozen candidate in a fresh context. A handoff is not
+checkpoint, `design-integrity-review` and `behavioral-acceptance-review` each review a frozen
+candidate in a fresh context; `review-md` writes down what they judge against. A handoff is not
 authorization to build.
 
 ## Catalog
@@ -46,9 +107,11 @@ Source repository: [reality-evidence-engineering](https://github.com/a1024053774
 ### Design integrity and acceptance
 
 - [`design-integrity-review`](https://github.com/a1024053774/design-integrity-guardrails/tree/main/design-integrity-review)
-  — self-check your own change for structural shortcuts before reporting it done, or route acceptance-surface changes to behavioral review.
+  — review one change in a fresh context against its goal, non-goals, and acceptance condition for structural shortcuts; route acceptance-surface changes to behavioral review.
 - [`behavioral-acceptance-review`](https://github.com/a1024053774/design-integrity-guardrails/tree/main/behavioral-acceptance-review)
   — independently audit tests, evals, generated artifacts, and user-visible workflows, including release verdicts for Agent products.
+- [`review-md`](https://github.com/a1024053774/design-integrity-guardrails/tree/main/review-md)
+  — when explicitly invoked, draft or update a repository's `REVIEW.md` with its owner: frozen acceptance surfaces, sensitive paths, what failure looks like, and paths to skip.
 
 Source repository: [design-integrity-guardrails](https://github.com/a1024053774/design-integrity-guardrails)
 
@@ -105,6 +168,7 @@ npx skills add a1024053774/reality-evidence-engineering --skill reality-first-en
 npx skills add a1024053774/reality-evidence-engineering --skill evidence-first-testing -g -y
 npx skills add a1024053774/design-integrity-guardrails --skill design-integrity-review -g -y
 npx skills add a1024053774/design-integrity-guardrails --skill behavioral-acceptance-review -g -y
+npx skills add a1024053774/design-integrity-guardrails --skill review-md -g -y
 npx skills add a1024053774/project-map-skill --skill project-map -g -y
 npx skills add a1024053774/architecture-flow-map-skill --skill architecture-flow-map -g -y
 npx skills add a1024053774/document-writing-skill --skill document-writing -g -y
@@ -127,8 +191,8 @@ fields does not pin installation or certify a Skill's runtime behavior.
 
 | Source repository | Reviewed commit | Skills |
 | --- | --- | --- |
-| [reality-evidence-engineering](https://github.com/a1024053774/reality-evidence-engineering) | [`55e591a`](https://github.com/a1024053774/reality-evidence-engineering/tree/55e591a5d7a5871914cf1542d4b73e099572af16) | `reality-first-engineering`, `evidence-first-testing` |
-| [design-integrity-guardrails](https://github.com/a1024053774/design-integrity-guardrails) | [`e2b3402`](https://github.com/a1024053774/design-integrity-guardrails/tree/e2b3402c2e16d08f60ec9ff73ad31b14cd955f5c) | `design-integrity-review`, `behavioral-acceptance-review` |
+| [reality-evidence-engineering](https://github.com/a1024053774/reality-evidence-engineering) | [`d52db57`](https://github.com/a1024053774/reality-evidence-engineering/tree/d52db5737fa242db8a56ebcc71851d3462157f64) | `reality-first-engineering`, `evidence-first-testing` |
+| [design-integrity-guardrails](https://github.com/a1024053774/design-integrity-guardrails) | [`4dcd99e`](https://github.com/a1024053774/design-integrity-guardrails/tree/4dcd99e570afa71f88c3ed4d0e543c32fed38a3f) | `design-integrity-review`, `behavioral-acceptance-review`, `review-md` |
 | [grilling-skill](https://github.com/a1024053774/grilling-skill) | [`f1e01bb`](https://github.com/a1024053774/grilling-skill/tree/f1e01bb6b94deb15769eee552125535c2c80ef42) | `grilling` |
 | [project-map-skill](https://github.com/a1024053774/project-map-skill) | [`c16779a`](https://github.com/a1024053774/project-map-skill/tree/c16779a296f43a91b20da2cabbe70223a7569f9a) | `project-map` |
 | [architecture-flow-map-skill](https://github.com/a1024053774/architecture-flow-map-skill) | [`8b3a0c5`](https://github.com/a1024053774/architecture-flow-map-skill/tree/8b3a0c5df60ee762461b39613614741b2f715f4b) | `architecture-flow-map` |
@@ -153,6 +217,40 @@ It links catalog Skills from your checkouts into the hub, mirrors the hub into `
 and removes symlinks in hub-reading directories that would list a Skill twice or that are broken.
 Real directories are only reported, never moved. Edit `MIRRORS` and `HUB_READERS` at the top of
 the script if your harness set differs.
+
+## Hooks
+
+A Skill's script runs only when the model remembers to run it; a hook runs every time. The check
+logic stays in the Skills' own scripts, one copy each, and the hooks in [`hooks/`](hooks) only call
+them at the right moment. They live here because `stop_checks.py` calls Skills from two
+repositories (`design-integrity-review` and `project-map`).
+
+| Hook | Events | What it does |
+| --- | --- | --- |
+| [`stop_checks.py`](hooks/stop_checks.py) | `SessionStart`, `Stop` (Claude Code and Codex) | On `SessionStart`, records `HEAD` as the session base in `<git-dir>/agent-session-base/<session_id>`, once, so a resumed session keeps it. On `Stop`, runs `design_integrity.py --base <that commit>` and, in a repository with `.project-map/`, `project_map.py status`. Each new item blocks the stop once: an added exception boundary, a changed acceptance surface (an acceptance test is frozen during implementation), a structural map problem, or a stale living doc. |
+| [`spin_signals.py`](hooks/spin_signals.py) | `PostToolUse`, `PostToolUseFailure`, `PostCompact` (Claude Code) | Tells the model, not the user, when the session may be spinning: the same test command failed 3 times in a row with edits in between, tests regressed twice (a test command failed after a test had passed), or the context was compacted twice. Many edits with no test run is normal feature work and does not count. |
+
+Install by linking them from this checkout, then register them:
+
+```bash
+mkdir -p ~/.claude/hooks
+for f in stop_checks.py spin_signals.py; do ln -sfn "$PWD/hooks/$f" ~/.claude/hooks/$f; done
+```
+
+- **Claude Code** (`~/.claude/settings.json`): `python3 "$HOME/.claude/hooks/stop_checks.py"` under
+  `SessionStart` and `Stop`; `python3 "$HOME/.claude/hooks/spin_signals.py"` under `PostToolUse`
+  (matcher `Edit|Write|MultiEdit|NotebookEdit|Bash`), `PostToolUseFailure` (matcher `Bash`), and
+  `PostCompact`.
+- **Codex** (`~/.codex/hooks.json`, same event names): `stop_checks.py` under `SessionStart` and
+  `Stop`. In codex-cli 0.164.0 an untrusted hook is skipped silently in `codex exec`, so trust the
+  hooks once in an interactive session, and again whenever the hook command changes.
+
+Each hook has an end-to-end test next to it that feeds it the documented hook payloads:
+
+```bash
+bash hooks/stop_checks_e2e.sh
+bash hooks/spin_signals_e2e.sh
+```
 
 ## Instruction budget check
 
