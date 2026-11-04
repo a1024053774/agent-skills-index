@@ -192,7 +192,7 @@ fields does not pin installation or certify a Skill's runtime behavior.
 | Source repository | Reviewed commit | Skills |
 | --- | --- | --- |
 | [reality-evidence-engineering](https://github.com/a1024053774/reality-evidence-engineering) | [`d52db57`](https://github.com/a1024053774/reality-evidence-engineering/tree/d52db5737fa242db8a56ebcc71851d3462157f64) | `reality-first-engineering`, `evidence-first-testing` |
-| [design-integrity-guardrails](https://github.com/a1024053774/design-integrity-guardrails) | [`4dcd99e`](https://github.com/a1024053774/design-integrity-guardrails/tree/4dcd99e570afa71f88c3ed4d0e543c32fed38a3f) | `design-integrity-review`, `behavioral-acceptance-review`, `review-md` |
+| [design-integrity-guardrails](https://github.com/a1024053774/design-integrity-guardrails) | [`b845027`](https://github.com/a1024053774/design-integrity-guardrails/tree/b84502768367d574fca4fac47b8830603f40b56e) | `design-integrity-review`, `behavioral-acceptance-review`, `review-md` |
 | [grilling-skill](https://github.com/a1024053774/grilling-skill) | [`f1e01bb`](https://github.com/a1024053774/grilling-skill/tree/f1e01bb6b94deb15769eee552125535c2c80ef42) | `grilling` |
 | [project-map-skill](https://github.com/a1024053774/project-map-skill) | [`c16779a`](https://github.com/a1024053774/project-map-skill/tree/c16779a296f43a91b20da2cabbe70223a7569f9a) | `project-map` |
 | [architecture-flow-map-skill](https://github.com/a1024053774/architecture-flow-map-skill) | [`8b3a0c5`](https://github.com/a1024053774/architecture-flow-map-skill/tree/8b3a0c5df60ee762461b39613614741b2f715f4b) | `architecture-flow-map` |

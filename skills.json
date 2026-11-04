@@ -28,7 +28,7 @@
       "repository": "https://github.com/a1024053774/design-integrity-guardrails",
       "path": "design-integrity-review",
       "install": "npx skills add a1024053774/design-integrity-guardrails --skill design-integrity-review -g -y",
-      "source_revision": "4dcd99e570afa71f88c3ed4d0e543c32fed38a3f"
+      "source_revision": "b84502768367d574fca4fac47b8830603f40b56e"
     },
     {
       "name": "behavioral-acceptance-review",
@@ -37,7 +37,7 @@
       "repository": "https://github.com/a1024053774/design-integrity-guardrails",
       "path": "behavioral-acceptance-review",
       "install": "npx skills add a1024053774/design-integrity-guardrails --skill behavioral-acceptance-review -g -y",
-      "source_revision": "4dcd99e570afa71f88c3ed4d0e543c32fed38a3f"
+      "source_revision": "b84502768367d574fca4fac47b8830603f40b56e"
     },
     {
       "name": "review-md",
@@ -46,7 +46,7 @@
       "repository": "https://github.com/a1024053774/design-integrity-guardrails",
       "path": "review-md",
       "install": "npx skills add a1024053774/design-integrity-guardrails --skill review-md -g -y",
-      "source_revision": "4dcd99e570afa71f88c3ed4d0e543c32fed38a3f"
+      "source_revision": "b84502768367d574fca4fac47b8830603f40b56e"
     },
     {
       "name": "grilling",
