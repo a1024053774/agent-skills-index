@@ -4,7 +4,7 @@
 
 这是 `a1024053774` 维护的一组可复用 Skill 的目录。每个 Skill 都有自己的源仓库和发布历史；本仓库只提供统一的查找和安装入口，不复制 Skill 代码，也不制造同步漂移。运行这些 Skill 检查的两个 [hook](#hook) 也放在这里，因为它们会调用不止一个仓库里的 Skill。
 
-目录共收录 **8 个源仓库中的 11 个 Skill**。上次完整复核：**2026-10-15**。下表中的源码修订在那一天与各仓库远端的 `main` 一致，以下几项除外：`asd-ste100` 于 2026-10-31 加入，其修订与当天远端的 `master` 一致；`reality-evidence-engineering` 和 `design-integrity-guardrails`（新增了 `review-md`）于 2026-11-04 更新，其修订与当天远端的 `main` 一致。已归档的副本不算目录条目。
+目录共收录 **8 个源仓库中的 11 个 Skill**。上次完整复核：**2026-10-15**。下表中的源码修订在那一天与各仓库远端的 `main` 一致，以下几项除外：`asd-ste100` 于 2026-10-31 加入，其修订与当天远端的 `master` 一致；`reality-evidence-engineering` 于 2026-11-04 更新，`design-integrity-guardrails`（新增了 `review-md`）于 2026-11-06 更新，其修订与更新当天远端的 `main` 一致。已归档的副本不算目录条目。
 
 ## 这些 Skill 怎么配合
 
