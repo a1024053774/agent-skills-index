@@ -42,6 +42,7 @@ flowchart TB
     rv -.-> bar
     impl -- "完成检查点" --> dir
     dir -- "验收面有改动" --> bar
+    impl -- "长时间或昂贵的运行、<br/>发布之前" --> bar
     dir -- "结论：先复现再修" --> impl
     bar -- "结论：先复现再修" --> impl
     dir --> ci
@@ -66,7 +67,7 @@ flowchart TB
 | 长期项目需要持久的决策记录和最新文档 | `project-map` | 沿用已有的 map，或在被要求时新建；规划接下来两三张纵向构建工单，每个会话做一张 |
 | 修 bug 或改行为需要可信的回归证据 | `evidence-first-testing` | 保留失败证据，证明同一个信号拒绝坏行为、接受修复；先复现审查结论再修；在小范围内系统搜索顺序契约 |
 | 改动引入结构风险 | `design-integrity-review` | 在干净上下文里按目标、非目标和验收条件审查一次；每条失败都要给出能走到它的输入；验收面的改动转给行为验收复审 |
-| 测试、eval、生成产物或 Agent 发布需要验收复审 | `behavioral-acceptance-review` | 要求独立 oracle、来自所声明边界的证据，以及每条失败都有实际跑过的反例 |
+| 长时间或昂贵的运行、发布依赖测试、eval 或生成产物，或验收面有改动 | `behavioral-acceptance-review` | 要求独立 oracle、来自所声明边界的证据，以及每条失败都有实际跑过的反例 |
 | 用户要为仓库建立 `REVIEW.md` | `review-md` | 只在用户点名时运行；从代码列出候选，只问代码答不出的问题，批准后再保存 |
 | 读者需要理解一个已有代码库怎么运转 | `architecture-flow-map` | 把当前行为追踪进 `map.json` 和可交互的 HTML 地图；不把设想中的设计画成事实 |
 | 文档需要起草、润色或翻译 | `document-writing` | 跨语言保持含义、限定条件和编码 |
@@ -74,7 +75,8 @@ flowchart TB
 | Web 前端需要做到或审到能上线 | `frontend-production` | 从受众、主要操作和真实内容出发；沿用项目的设计 token；只读审查，按 P0–P3 分级并说明证据范围 |
 
 按需使用相关的 Skill，而不是一条必须走完的十一步流水线。`grilling` 敲定人的决策；`reality-first-engineering` 敲定不确定的事实；`project-map` 保存项目的持久状态。`evidence-first-testing` 在实现过程中提供回归证据。到了完成检查点，`design-integrity-review`
-和 `behavioral-acceptance-review` 各自在干净上下文里审查一个冻结的候选版本；`review-md`
+在干净上下文里审查一个冻结的候选版本。长时间或昂贵的运行、发布之前，`behavioral-acceptance-review`
+同样在干净上下文里，针对冻结的候选版本审查这次运行依赖的证据。`review-md`
 把它们评判的依据写下来。交接不等于授权开工。
 
 ## 目录
@@ -170,7 +172,7 @@ Skill 的运行时行为。
 | 源仓库 | 复核的 commit | Skill |
 | --- | --- | --- |
 | [reality-evidence-engineering](https://github.com/a1024053774/reality-evidence-engineering) | [`d52db57`](https://github.com/a1024053774/reality-evidence-engineering/tree/d52db5737fa242db8a56ebcc71851d3462157f64) | `reality-first-engineering`、`evidence-first-testing` |
-| [design-integrity-guardrails](https://github.com/a1024053774/design-integrity-guardrails) | [`b845027`](https://github.com/a1024053774/design-integrity-guardrails/tree/b84502768367d574fca4fac47b8830603f40b56e) | `design-integrity-review`、`behavioral-acceptance-review`、`review-md` |
+| [design-integrity-guardrails](https://github.com/a1024053774/design-integrity-guardrails) | [`facc7c1`](https://github.com/a1024053774/design-integrity-guardrails/tree/facc7c1799921d6f4206b066c8161c468fe8a54b) | `design-integrity-review`、`behavioral-acceptance-review`、`review-md` |
 | [grilling-skill](https://github.com/a1024053774/grilling-skill) | [`f1e01bb`](https://github.com/a1024053774/grilling-skill/tree/f1e01bb6b94deb15769eee552125535c2c80ef42) | `grilling` |
 | [project-map-skill](https://github.com/a1024053774/project-map-skill) | [`c16779a`](https://github.com/a1024053774/project-map-skill/tree/c16779a296f43a91b20da2cabbe70223a7569f9a) | `project-map` |
 | [architecture-flow-map-skill](https://github.com/a1024053774/architecture-flow-map-skill) | [`8b3a0c5`](https://github.com/a1024053774/architecture-flow-map-skill/tree/8b3a0c5df60ee762461b39613614741b2f715f4b) | `architecture-flow-map` |

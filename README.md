@@ -51,6 +51,7 @@ flowchart TB
     rv -.-> bar
     impl -- "completion checkpoint" --> dir
     dir -- "acceptance surface changed" --> bar
+    impl -- "before a long or costly run,<br/>or a release" --> bar
     dir -- "findings: reproduce, then fix" --> impl
     bar -- "findings: reproduce, then fix" --> impl
     dir --> ci
@@ -79,7 +80,7 @@ owner's approval.
 | A long-running project needs durable decisions and current docs | `project-map` | Use an existing map or create one when asked; plan the next two or three vertical build tickets and work one per session |
 | A bug fix or behavior change needs credible regression evidence | `evidence-first-testing` | Preserve the failure and show the same signal rejects bad behavior and accepts the repair; reproduce review findings before fixing them; search ordering contracts in a small scope |
 | A change adds structural risk | `design-integrity-review` | Review once in a fresh context against the goal, non-goals, and acceptance condition; each failure names an input that reaches it; route acceptance-surface changes to behavioral review |
-| Tests, evals, generated artifacts, or an Agent release need acceptance review | `behavioral-acceptance-review` | Require an independent oracle, evidence from the boundary being claimed, and an executed counterexample for each failure |
+| A long or costly run or a release relies on tests, evals, or generated artifacts, or an acceptance surface changed | `behavioral-acceptance-review` | Require an independent oracle, evidence from the boundary being claimed, and an executed counterexample for each failure |
 | The user asks for a repository's `REVIEW.md` | `review-md` | Run only when asked; list candidates from the code, ask the owner only what the code cannot answer, save after approval |
 | The reader needs to understand how an existing codebase runs | `architecture-flow-map` | Trace current behavior into `map.json` and an interactive HTML map; do not draw a proposed design as fact |
 | A document needs drafting, polishing, or translation | `document-writing` | Preserve meaning, qualifications, and encoding across languages |
@@ -89,8 +90,9 @@ owner's approval.
 Use the relevant Skills, not a mandatory eleven-step pipeline. `grilling` settles human decisions;
 `reality-first-engineering` settles uncertain facts; `project-map` holds persistent project state.
 `evidence-first-testing` supplies regression evidence during implementation. At a completion
-checkpoint, `design-integrity-review` and `behavioral-acceptance-review` each review a frozen
-candidate in a fresh context; `review-md` writes down what they judge against. A handoff is not
+checkpoint, `design-integrity-review` reviews a frozen candidate in a fresh context. Before a long
+or costly run or a release, `behavioral-acceptance-review` audits the evidence that run relies on,
+also on a frozen candidate in a fresh context. `review-md` writes down what they judge against. A handoff is not
 authorization to build.
 
 ## Catalog
@@ -192,7 +194,7 @@ fields does not pin installation or certify a Skill's runtime behavior.
 | Source repository | Reviewed commit | Skills |
 | --- | --- | --- |
 | [reality-evidence-engineering](https://github.com/a1024053774/reality-evidence-engineering) | [`d52db57`](https://github.com/a1024053774/reality-evidence-engineering/tree/d52db5737fa242db8a56ebcc71851d3462157f64) | `reality-first-engineering`, `evidence-first-testing` |
-| [design-integrity-guardrails](https://github.com/a1024053774/design-integrity-guardrails) | [`b845027`](https://github.com/a1024053774/design-integrity-guardrails/tree/b84502768367d574fca4fac47b8830603f40b56e) | `design-integrity-review`, `behavioral-acceptance-review`, `review-md` |
+| [design-integrity-guardrails](https://github.com/a1024053774/design-integrity-guardrails) | [`facc7c1`](https://github.com/a1024053774/design-integrity-guardrails/tree/facc7c1799921d6f4206b066c8161c468fe8a54b) | `design-integrity-review`, `behavioral-acceptance-review`, `review-md` |
 | [grilling-skill](https://github.com/a1024053774/grilling-skill) | [`f1e01bb`](https://github.com/a1024053774/grilling-skill/tree/f1e01bb6b94deb15769eee552125535c2c80ef42) | `grilling` |
 | [project-map-skill](https://github.com/a1024053774/project-map-skill) | [`c16779a`](https://github.com/a1024053774/project-map-skill/tree/c16779a296f43a91b20da2cabbe70223a7569f9a) | `project-map` |
 | [architecture-flow-map-skill](https://github.com/a1024053774/architecture-flow-map-skill) | [`8b3a0c5`](https://github.com/a1024053774/architecture-flow-map-skill/tree/8b3a0c5df60ee762461b39613614741b2f715f4b) | `architecture-flow-map` |
