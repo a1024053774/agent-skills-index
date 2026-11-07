@@ -11,7 +11,7 @@ The catalog contains **11 Skills from 8 source repositories**. Last reviewed: **
 The source revisions below matched each repository's remote `main` on that date, except
 `asd-ste100`, added on 2026-10-31: its revision matched its remote `master` that day; and
 `reality-evidence-engineering`, updated on 2026-11-04, and
-`design-integrity-guardrails` (which added `review-md`), updated on 2026-11-06: their revisions
+`design-integrity-guardrails` (which added `review-md`), updated on 2026-11-07: their revisions
 matched their remote `main` on those days. Archived copies are
 not catalog entries.
 
