@@ -11,8 +11,9 @@ The catalog contains **11 Skills from 8 source repositories**. Last reviewed: **
 The source revisions below matched each repository's remote `main` on that date, except
 `asd-ste100`, added on 2026-10-31: its revision matched its remote `master` that day; and
 `reality-evidence-engineering`, updated on 2026-11-04, and
-`design-integrity-guardrails` (which added `review-md`), updated on 2026-11-07: their revisions
-matched their remote `main` on those days. Archived copies are
+`design-integrity-guardrails` (which added `review-md`), updated on 2026-11-07, and
+`document-writing-skill`, updated on 2026-11-08: their revisions matched their remote `main` on
+those days. Archived copies are
 not catalog entries.
 
 ## How the Skills work together
@@ -84,7 +85,7 @@ owner's approval.
 | A long or costly run or a release relies on tests, evals, or generated artifacts, or an acceptance surface changed | `behavioral-acceptance-review` | Require an independent oracle, evidence from the boundary being claimed, and an executed counterexample for each failure |
 | The user asks for a repository's `REVIEW.md` | `review-md` | Run only when asked; list candidates from the code, ask the owner only what the code cannot answer, save after approval |
 | The reader needs to understand how an existing codebase runs | `architecture-flow-map` | Trace current behavior into `map.json` and an interactive HTML map; do not draw a proposed design as fact |
-| A document needs drafting, polishing, or translation | `document-writing` | Preserve meaning, qualifications, and encoding across languages |
+| A document or paper needs drafting, polishing, or translation | `document-writing` | Preserve meaning, qualifications, and encoding across languages; lead papers with the strongest supported result |
 | The user asks for a given text to be made unambiguous for a model or a non-native reader | `asd-ste100` | Run only when asked; rewrite the given English or Simplified Chinese text and keep every fact and hedge; never restyle the agent's own output |
 | A web frontend must be built or reviewed to ship | `frontend-production` | Start from the audience, primary action, and real content; keep the project's tokens; review read-only with P0–P3 and evidence limits |
 
@@ -139,7 +140,7 @@ Source repository: [architecture-flow-map-skill](https://github.com/a1024053774/
 ### Writing
 
 - [`document-writing`](https://github.com/a1024053774/document-writing-skill/tree/main/document-writing)
-  — draft, polish, or translate documents with natural target-language prose, semantic fidelity, and encoding protection.
+  — draft, polish, or translate documents with natural target-language prose, semantic fidelity, and encoding protection; write academic papers without defensive hedging and check research ideas for novelty.
 - [`asd-ste100`](https://github.com/a1024053774/asd-ste100)
   — when explicitly invoked, rewrite a given English or Simplified Chinese text into ASD-STE100-style controlled
   language so a model cannot misread it, keeping every fact and hedge. A fork of
@@ -199,7 +200,7 @@ fields does not pin installation or certify a Skill's runtime behavior.
 | [grilling-skill](https://github.com/a1024053774/grilling-skill) | [`f1e01bb`](https://github.com/a1024053774/grilling-skill/tree/f1e01bb6b94deb15769eee552125535c2c80ef42) | `grilling` |
 | [project-map-skill](https://github.com/a1024053774/project-map-skill) | [`c16779a`](https://github.com/a1024053774/project-map-skill/tree/c16779a296f43a91b20da2cabbe70223a7569f9a) | `project-map` |
 | [architecture-flow-map-skill](https://github.com/a1024053774/architecture-flow-map-skill) | [`8b3a0c5`](https://github.com/a1024053774/architecture-flow-map-skill/tree/8b3a0c5df60ee762461b39613614741b2f715f4b) | `architecture-flow-map` |
-| [document-writing-skill](https://github.com/a1024053774/document-writing-skill) | [`5fc4ea0`](https://github.com/a1024053774/document-writing-skill/tree/5fc4ea0cacfb9d1dd331a772ee0b34120799ec48) | `document-writing` |
+| [document-writing-skill](https://github.com/a1024053774/document-writing-skill) | [`b22049e`](https://github.com/a1024053774/document-writing-skill/tree/b22049e8c5697c83ff8093f39848587d6ade5cbc) | `document-writing` |
 | [asd-ste100](https://github.com/a1024053774/asd-ste100) | [`d2f2d77`](https://github.com/a1024053774/asd-ste100/tree/d2f2d775c35c7aee861c96ed7e46569c993a8c69) | `asd-ste100` |
 | [frontend-production-skill](https://github.com/a1024053774/frontend-production-skill) | [`b291300`](https://github.com/a1024053774/frontend-production-skill/tree/b2913002abd3767c1e9272201568695e58232e48) | `frontend-production` |
 

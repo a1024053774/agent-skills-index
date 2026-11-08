@@ -4,7 +4,7 @@
 
 这是 `a1024053774` 维护的一组可复用 Skill 的目录。每个 Skill 都有自己的源仓库和发布历史；本仓库只提供统一的查找和安装入口，不复制 Skill 代码，也不制造同步漂移。运行这些 Skill 检查的两个 [hook](#hook) 也放在这里，因为它们会调用不止一个仓库里的 Skill。
 
-目录共收录 **8 个源仓库中的 11 个 Skill**。上次完整复核：**2026-10-15**。下表中的源码修订在那一天与各仓库远端的 `main` 一致，以下几项除外：`asd-ste100` 于 2026-10-31 加入，其修订与当天远端的 `master` 一致；`reality-evidence-engineering` 于 2026-11-04 更新，`design-integrity-guardrails`（新增了 `review-md`）于 2026-11-07 更新，其修订与更新当天远端的 `main` 一致。已归档的副本不算目录条目。
+目录共收录 **8 个源仓库中的 11 个 Skill**。上次完整复核：**2026-10-15**。下表中的源码修订在那一天与各仓库远端的 `main` 一致，以下几项除外：`asd-ste100` 于 2026-10-31 加入，其修订与当天远端的 `master` 一致；`reality-evidence-engineering` 于 2026-11-04 更新，`design-integrity-guardrails`（新增了 `review-md`）于 2026-11-07 更新，`document-writing-skill` 于 2026-11-08 更新，其修订与更新当天远端的 `main` 一致。已归档的副本不算目录条目。
 
 ## 这些 Skill 怎么配合
 
@@ -70,7 +70,7 @@ flowchart TB
 | 长时间或昂贵的运行、发布依赖测试、eval 或生成产物，或验收面有改动 | `behavioral-acceptance-review` | 要求独立 oracle、来自所声明边界的证据，以及每条失败都有实际跑过的反例 |
 | 用户要为仓库建立 `REVIEW.md` | `review-md` | 只在用户点名时运行；从代码列出候选，只问代码答不出的问题，批准后再保存 |
 | 读者需要理解一个已有代码库怎么运转 | `architecture-flow-map` | 把当前行为追踪进 `map.json` 和可交互的 HTML 地图；不把设想中的设计画成事实 |
-| 文档需要起草、润色或翻译 | `document-writing` | 跨语言保持含义、限定条件和编码 |
+| 文档或论文需要起草、润色或翻译 | `document-writing` | 跨语言保持含义、限定条件和编码；论文围绕证据支持的最强结果展开 |
 | 用户要求把一段给定文本改写得让模型或非母语读者不会误读 | `asd-ste100` | 只在用户点名时运行；改写给定的英文或简体中文文本，保留每个事实和留有余地的说法；从不改写 Agent 自己的输出 |
 | Web 前端需要做到或审到能上线 | `frontend-production` | 从受众、主要操作和真实内容出发；沿用项目的设计 token；只读审查，按 P0–P3 分级并说明证据范围 |
 
@@ -120,7 +120,7 @@ flowchart TB
 ### 写作
 
 - [`document-writing`](https://github.com/a1024053774/document-writing-skill/tree/main/document-writing)
-  —— 起草、润色或翻译文档，写出符合目标语言习惯的文字，保持语义忠实，并保护文件编码。
+  —— 起草、润色或翻译文档，写出符合目标语言习惯的文字，保持语义忠实，并保护文件编码；写论文时去掉防御性写作，并检查研究 idea 的创新性。
 - [`asd-ste100`](https://github.com/a1024053774/asd-ste100)
   —— 只在用户点名时运行，把给定的英文或简体中文文本改写成 ASD-STE100 风格的受控语言，让模型不会误读，同时保留每个事实和留有余地的说法。Fork 自
   [danyuchn/asd-ste100-skill](https://github.com/danyuchn/asd-ste100-skill)，中文规则改编自
@@ -176,7 +176,7 @@ Skill 的运行时行为。
 | [grilling-skill](https://github.com/a1024053774/grilling-skill) | [`f1e01bb`](https://github.com/a1024053774/grilling-skill/tree/f1e01bb6b94deb15769eee552125535c2c80ef42) | `grilling` |
 | [project-map-skill](https://github.com/a1024053774/project-map-skill) | [`c16779a`](https://github.com/a1024053774/project-map-skill/tree/c16779a296f43a91b20da2cabbe70223a7569f9a) | `project-map` |
 | [architecture-flow-map-skill](https://github.com/a1024053774/architecture-flow-map-skill) | [`8b3a0c5`](https://github.com/a1024053774/architecture-flow-map-skill/tree/8b3a0c5df60ee762461b39613614741b2f715f4b) | `architecture-flow-map` |
-| [document-writing-skill](https://github.com/a1024053774/document-writing-skill) | [`5fc4ea0`](https://github.com/a1024053774/document-writing-skill/tree/5fc4ea0cacfb9d1dd331a772ee0b34120799ec48) | `document-writing` |
+| [document-writing-skill](https://github.com/a1024053774/document-writing-skill) | [`b22049e`](https://github.com/a1024053774/document-writing-skill/tree/b22049e8c5697c83ff8093f39848587d6ade5cbc) | `document-writing` |
 | [asd-ste100](https://github.com/a1024053774/asd-ste100) | [`d2f2d77`](https://github.com/a1024053774/asd-ste100/tree/d2f2d775c35c7aee861c96ed7e46569c993a8c69) | `asd-ste100` |
 | [frontend-production-skill](https://github.com/a1024053774/frontend-production-skill) | [`b291300`](https://github.com/a1024053774/frontend-production-skill/tree/b2913002abd3767c1e9272201568695e58232e48) | `frontend-production` |
 

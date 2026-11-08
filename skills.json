@@ -79,11 +79,11 @@
     {
       "name": "document-writing",
       "category": "writing",
-      "description": "Draft, polish, or translate documents with natural target-language prose, semantic fidelity, and encoding protection.",
+      "description": "Draft, polish, or translate documents with natural target-language prose, semantic fidelity, and encoding protection; for academic papers, lead with the strongest supported contribution and remove defensive writing.",
       "repository": "https://github.com/a1024053774/document-writing-skill",
       "path": "document-writing",
       "install": "npx skills add a1024053774/document-writing-skill --skill document-writing -g -y",
-      "source_revision": "5fc4ea0cacfb9d1dd331a772ee0b34120799ec48"
+      "source_revision": "b22049e8c5697c83ff8093f39848587d6ade5cbc"
     },
     {
       "name": "asd-ste100",
