@@ -7,13 +7,14 @@ repository and release history; this repository provides one stable discovery an
 entry point without copying Skill code or creating synchronization drift. It also holds the two
 [hooks](#hooks) that run the Skills' checks, because they call Skills from more than one repository.
 
-The catalog contains **11 Skills from 8 source repositories**. Last reviewed: **2026-10-15**.
+The catalog contains **12 Skills from 9 source repositories**. Last reviewed: **2026-10-15**.
 The source revisions below matched each repository's remote `main` on that date, except
 `asd-ste100`, added on 2026-10-31: its revision matched its remote `master` that day; and
 `reality-evidence-engineering`, updated on 2026-11-04, and
 `design-integrity-guardrails` (which added `review-md`), updated on 2026-11-07, and
 `document-writing-skill`, updated on 2026-11-08: their revisions matched their remote `main` on
-those days. Archived copies are
+those days; and `paper-annotation-skill`, added on 2026-11-11: its revision matched its remote
+`main` that day. Archived copies are
 not catalog entries.
 
 ## How the Skills work together
@@ -63,6 +64,7 @@ flowchart TB
         dw["document-writing<br/>draft, polish, translate"]
         ste["asd-ste100<br/>unambiguous rewrite, only when asked"]
         afm["architecture-flow-map<br/>how an existing codebase runs"]
+        pa["paper-annotation<br/>annotated bilingual page of a paper, only when asked"]
         fp["frontend-production<br/>build and review web UI to ship"]
     end
 ```
@@ -87,9 +89,10 @@ owner's approval.
 | The reader needs to understand how an existing codebase runs | `architecture-flow-map` | Trace current behavior into `map.json` and an interactive HTML map; do not draw a proposed design as fact |
 | A document or paper needs drafting, polishing, or translation | `document-writing` | Preserve meaning, qualifications, and encoding across languages; lead papers with the strongest supported result |
 | The user asks for a given text to be made unambiguous for a model or a non-native reader | `asd-ste100` | Run only when asked; rewrite the given English or Simplified Chinese text and keep every fact and hedge; never restyle the agent's own output |
+| The user asks for an English paper as an annotated bilingual page | `paper-annotation` | Run only when asked; take the original text from the source, never retype or skip paragraphs, and write a doubt only where a sentence supports it |
 | A web frontend must be built or reviewed to ship | `frontend-production` | Start from the audience, primary action, and real content; keep the project's tokens; review read-only with P0–P3 and evidence limits |
 
-Use the relevant Skills, not a mandatory eleven-step pipeline. `grilling` settles human decisions;
+Use the relevant Skills, not a mandatory twelve-step pipeline. `grilling` settles human decisions;
 `reality-first-engineering` settles uncertain facts; `project-map` holds persistent project state.
 `evidence-first-testing` supplies regression evidence during implementation. At a completion
 checkpoint, `design-integrity-review` reviews a frozen candidate in a fresh context. Before a long
@@ -149,6 +152,15 @@ Source repository: [architecture-flow-map-skill](https://github.com/a1024053774/
 
 Source repositories: [document-writing-skill](https://github.com/a1024053774/document-writing-skill) · [asd-ste100](https://github.com/a1024053774/asd-ste100)
 
+### Reading papers
+
+- [`paper-annotation`](https://github.com/a1024053774/paper-annotation-skill/tree/main/paper-annotation)
+  — when explicitly invoked, turn an English paper into one two-column HTML page: original text with five
+  kinds of argument highlights and a Chinese translation, paragraph notes, figures cut from the PDF, and an
+  argument overview; the build checks every paragraph against the source.
+
+Source repository: [paper-annotation-skill](https://github.com/a1024053774/paper-annotation-skill)
+
 ### Frontend
 
 - [`frontend-production`](https://github.com/a1024053774/frontend-production-skill/tree/main/frontend-production)
@@ -177,6 +189,7 @@ npx skills add a1024053774/project-map-skill --skill project-map -g -y
 npx skills add a1024053774/architecture-flow-map-skill --skill architecture-flow-map -g -y
 npx skills add a1024053774/document-writing-skill --skill document-writing -g -y
 npx skills add a1024053774/asd-ste100 --skill asd-ste100 -g -y
+npx skills add a1024053774/paper-annotation-skill --skill paper-annotation -g -y
 npx skills add a1024053774/frontend-production-skill --skill frontend-production -g -y
 ```
 
@@ -202,6 +215,7 @@ fields does not pin installation or certify a Skill's runtime behavior.
 | [architecture-flow-map-skill](https://github.com/a1024053774/architecture-flow-map-skill) | [`8b3a0c5`](https://github.com/a1024053774/architecture-flow-map-skill/tree/8b3a0c5df60ee762461b39613614741b2f715f4b) | `architecture-flow-map` |
 | [document-writing-skill](https://github.com/a1024053774/document-writing-skill) | [`b22049e`](https://github.com/a1024053774/document-writing-skill/tree/b22049e8c5697c83ff8093f39848587d6ade5cbc) | `document-writing` |
 | [asd-ste100](https://github.com/a1024053774/asd-ste100) | [`d2f2d77`](https://github.com/a1024053774/asd-ste100/tree/d2f2d775c35c7aee861c96ed7e46569c993a8c69) | `asd-ste100` |
+| [paper-annotation-skill](https://github.com/a1024053774/paper-annotation-skill) | [`44cfc8b`](https://github.com/a1024053774/paper-annotation-skill/tree/44cfc8be5ab19e6dc8d9027e1898bbb014e5866d) | `paper-annotation` |
 | [frontend-production-skill](https://github.com/a1024053774/frontend-production-skill) | [`b291300`](https://github.com/a1024053774/frontend-production-skill/tree/b2913002abd3767c1e9272201568695e58232e48) | `frontend-production` |
 
 ## Local checkouts and the skill hub

@@ -96,6 +96,15 @@
       "maxBytes": 18432
     },
     {
+      "name": "paper-annotation",
+      "category": "reading",
+      "description": "When explicitly invoked, turn an English paper into one two-column HTML page: original text with argument highlights and a Chinese translation, paragraph notes, and an argument overview, with every paragraph checked against the source.",
+      "repository": "https://github.com/a1024053774/paper-annotation-skill",
+      "path": "paper-annotation",
+      "install": "npx skills add a1024053774/paper-annotation-skill --skill paper-annotation -g -y",
+      "source_revision": "44cfc8be5ab19e6dc8d9027e1898bbb014e5866d"
+    },
+    {
       "name": "frontend-production",
       "category": "frontend",
       "description": "Build and review web frontends to ship: product voice and visual direction, one visual family, motion, mobile web, and page-by-page engineering review.",

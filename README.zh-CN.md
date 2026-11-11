@@ -4,7 +4,7 @@
 
 这是 `a1024053774` 维护的一组可复用 Skill 的目录。每个 Skill 都有自己的源仓库和发布历史；本仓库只提供统一的查找和安装入口，不复制 Skill 代码，也不制造同步漂移。运行这些 Skill 检查的两个 [hook](#hook) 也放在这里，因为它们会调用不止一个仓库里的 Skill。
 
-目录共收录 **8 个源仓库中的 11 个 Skill**。上次完整复核：**2026-10-15**。下表中的源码修订在那一天与各仓库远端的 `main` 一致，以下几项除外：`asd-ste100` 于 2026-10-31 加入，其修订与当天远端的 `master` 一致；`reality-evidence-engineering` 于 2026-11-04 更新，`design-integrity-guardrails`（新增了 `review-md`）于 2026-11-07 更新，`document-writing-skill` 于 2026-11-08 更新，其修订与更新当天远端的 `main` 一致。已归档的副本不算目录条目。
+目录共收录 **9 个源仓库中的 12 个 Skill**。上次完整复核：**2026-10-15**。下表中的源码修订在那一天与各仓库远端的 `main` 一致，以下几项除外：`asd-ste100` 于 2026-10-31 加入，其修订与当天远端的 `master` 一致；`reality-evidence-engineering` 于 2026-11-04 更新，`design-integrity-guardrails`（新增了 `review-md`）于 2026-11-07 更新，`document-writing-skill` 于 2026-11-08 更新，其修订与更新当天远端的 `main` 一致；`paper-annotation-skill` 于 2026-11-11 加入，其修订与当天远端的 `main` 一致。已归档的副本不算目录条目。
 
 ## 这些 Skill 怎么配合
 
@@ -52,6 +52,7 @@ flowchart TB
         dw["document-writing<br/>起草、润色、翻译"]
         ste["asd-ste100<br/>消歧改写，只在用户点名时运行"]
         afm["architecture-flow-map<br/>已有代码库怎么运转"]
+        pa["paper-annotation<br/>论文双栏批注页，只在用户点名时运行"]
         fp["frontend-production<br/>把 Web 界面做到、审到能上线"]
     end
 ```
@@ -72,9 +73,10 @@ flowchart TB
 | 读者需要理解一个已有代码库怎么运转 | `architecture-flow-map` | 把当前行为追踪进 `map.json` 和可交互的 HTML 地图；不把设想中的设计画成事实 |
 | 文档或论文需要起草、润色或翻译 | `document-writing` | 跨语言保持含义、限定条件和编码；论文围绕证据支持的最强结果展开 |
 | 用户要求把一段给定文本改写得让模型或非母语读者不会误读 | `asd-ste100` | 只在用户点名时运行；改写给定的英文或简体中文文本，保留每个事实和留有余地的说法；从不改写 Agent 自己的输出 |
+| 用户要把一篇英文论文做成双栏批注页 | `paper-annotation` | 只在用户点名时运行；原文从抽取的全文里取，不重打、不跳段；“可疑之处”只在能指到具体句子时写 |
 | Web 前端需要做到或审到能上线 | `frontend-production` | 从受众、主要操作和真实内容出发；沿用项目的设计 token；只读审查，按 P0–P3 分级并说明证据范围 |
 
-按需使用相关的 Skill，而不是一条必须走完的十一步流水线。`grilling` 敲定人的决策；`reality-first-engineering` 敲定不确定的事实；`project-map` 保存项目的持久状态。`evidence-first-testing` 在实现过程中提供回归证据。到了完成检查点，`design-integrity-review`
+按需使用相关的 Skill，而不是一条必须走完的十二步流水线。`grilling` 敲定人的决策；`reality-first-engineering` 敲定不确定的事实；`project-map` 保存项目的持久状态。`evidence-first-testing` 在实现过程中提供回归证据。到了完成检查点，`design-integrity-review`
 在干净上下文里审查一个冻结的候选版本。长时间或昂贵的运行、发布之前，`behavioral-acceptance-review`
 同样在干净上下文里，针对冻结的候选版本审查这次运行依赖的证据。`review-md`
 把它们评判的依据写下来。交接不等于授权开工。
@@ -128,6 +130,13 @@ flowchart TB
 
 源仓库：[document-writing-skill](https://github.com/a1024053774/document-writing-skill) · [asd-ste100](https://github.com/a1024053774/asd-ste100)
 
+### 读论文
+
+- [`paper-annotation`](https://github.com/a1024053774/paper-annotation-skill/tree/main/paper-annotation)
+  —— 只在用户点名时运行，把一篇英文论文做成单文件的双栏 HTML：原文按五类论证维度高亮并配中文意译，逐段批注，图表从 PDF 截取，文末附论证结构总览；构建时逐段与原文核对。
+
+源仓库：[paper-annotation-skill](https://github.com/a1024053774/paper-annotation-skill)
+
 ### 前端
 
 - [`frontend-production`](https://github.com/a1024053774/frontend-production-skill/tree/main/frontend-production)
@@ -155,6 +164,7 @@ npx skills add a1024053774/project-map-skill --skill project-map -g -y
 npx skills add a1024053774/architecture-flow-map-skill --skill architecture-flow-map -g -y
 npx skills add a1024053774/document-writing-skill --skill document-writing -g -y
 npx skills add a1024053774/asd-ste100 --skill asd-ste100 -g -y
+npx skills add a1024053774/paper-annotation-skill --skill paper-annotation -g -y
 npx skills add a1024053774/frontend-production-skill --skill frontend-production -g -y
 ```
 
@@ -178,6 +188,7 @@ Skill 的运行时行为。
 | [architecture-flow-map-skill](https://github.com/a1024053774/architecture-flow-map-skill) | [`8b3a0c5`](https://github.com/a1024053774/architecture-flow-map-skill/tree/8b3a0c5df60ee762461b39613614741b2f715f4b) | `architecture-flow-map` |
 | [document-writing-skill](https://github.com/a1024053774/document-writing-skill) | [`b22049e`](https://github.com/a1024053774/document-writing-skill/tree/b22049e8c5697c83ff8093f39848587d6ade5cbc) | `document-writing` |
 | [asd-ste100](https://github.com/a1024053774/asd-ste100) | [`d2f2d77`](https://github.com/a1024053774/asd-ste100/tree/d2f2d775c35c7aee861c96ed7e46569c993a8c69) | `asd-ste100` |
+| [paper-annotation-skill](https://github.com/a1024053774/paper-annotation-skill) | [`44cfc8b`](https://github.com/a1024053774/paper-annotation-skill/tree/44cfc8be5ab19e6dc8d9027e1898bbb014e5866d) | `paper-annotation` |
 | [frontend-production-skill](https://github.com/a1024053774/frontend-production-skill) | [`b291300`](https://github.com/a1024053774/frontend-production-skill/tree/b2913002abd3767c1e9272201568695e58232e48) | `frontend-production` |
 
 ## 本地 checkout 与 Skill 中心目录
