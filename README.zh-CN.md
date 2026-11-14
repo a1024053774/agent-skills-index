@@ -2,9 +2,9 @@
 
 [English](README.md) · 简体中文
 
-这是 `a1024053774` 维护的一组可复用 Skill 的目录。每个 Skill 都有自己的源仓库和发布历史；本仓库只提供统一的查找和安装入口，不复制 Skill 代码，也不制造同步漂移。运行这些 Skill 检查的两个 [hook](#hook) 也放在这里，因为它们会调用不止一个仓库里的 Skill。
+这是 `a1024053774` 维护的一组可复用 Skill 的目录，另外收录了一个第三方 Skill：GoogleChrome 的 [`modern-web-guidance`](#前端)，因为 `frontend-production` 把浏览器 API 的问题交给它。每个 Skill 都有自己的源仓库和发布历史；本仓库只提供统一的查找和安装入口，不复制 Skill 代码，也不制造同步漂移。运行这些 Skill 检查的两个 [hook](#hook) 也放在这里，因为它们会调用不止一个仓库里的 Skill。
 
-目录共收录 **9 个源仓库中的 12 个 Skill**。上次完整复核：**2026-10-15**。下表中的源码修订在那一天与各仓库远端的 `main` 一致，以下几项除外：`asd-ste100` 于 2026-10-31 加入，其修订与当天远端的 `master` 一致；`reality-evidence-engineering` 于 2026-11-04 更新，`design-integrity-guardrails`（新增了 `review-md`）于 2026-11-07 更新，`document-writing-skill` 于 2026-11-08 更新，其修订与更新当天远端的 `main` 一致；`paper-annotation-skill` 于 2026-11-11 加入，其修订与当天远端的 `main` 一致。已归档的副本不算目录条目。
+目录共收录 **10 个源仓库中的 13 个 Skill**。上次完整复核：**2026-10-15**。下表中的源码修订在那一天与各仓库远端的 `main` 一致，以下几项除外：`asd-ste100` 于 2026-10-31 加入，其修订与当天远端的 `master` 一致；`reality-evidence-engineering` 于 2026-11-04 更新，`design-integrity-guardrails`（新增了 `review-md`）于 2026-11-07 更新，`document-writing-skill` 于 2026-11-08 更新，其修订与更新当天远端的 `main` 一致；`paper-annotation-skill` 于 2026-11-11 加入，其修订与当天远端的 `main` 一致；`modern-web-guidance` 于 2026-11-13 加入，`frontend-production-skill` 于 2026-11-14 更新，其修订与当天远端的 `main` 一致。已归档的副本不算目录条目。
 
 ## 这些 Skill 怎么配合
 
@@ -54,6 +54,8 @@ flowchart TB
         afm["architecture-flow-map<br/>已有代码库怎么运转"]
         pa["paper-annotation<br/>论文双栏批注页，只在用户点名时运行"]
         fp["frontend-production<br/>把 Web 界面做到、审到能上线"]
+        mwg["modern-web-guidance（GoogleChrome）<br/>用哪个浏览器 API、怎么兼容"]
+        fp -. "浏览器 API 问题" .-> mwg
     end
 ```
 
@@ -75,8 +77,9 @@ flowchart TB
 | 用户要求把一段给定文本改写得让模型或非母语读者不会误读 | `asd-ste100` | 只在用户点名时运行；改写给定的英文或简体中文文本，保留每个事实和留有余地的说法；从不改写 Agent 自己的输出 |
 | 用户要把一篇英文论文做成双栏批注页 | `paper-annotation` | 只在用户点名时运行；原文从抽取的全文里取，不重打、不跳段；“可疑之处”只在能指到具体句子时写 |
 | Web 前端需要做到或审到能上线 | `frontend-production` | 从受众、主要操作和真实内容出发；沿用项目的设计 token；只读审查，按 P0–P3 分级并说明证据范围 |
+| HTML、CSS 或客户端 JS 用到浏览器能力（dialog、popover、手风琴、顶层元素或滚动驱动动画、表单、性能、安全 API） | `modern-web-guidance` | 第三方；决定用哪个浏览器 API、不支持时怎么退；方向、文案、动效参数和审查仍归 `frontend-production`，项目已有的组件库优先于原生重写 |
 
-按需使用相关的 Skill，而不是一条必须走完的十二步流水线。`grilling` 敲定人的决策；`reality-first-engineering` 敲定不确定的事实；`project-map` 保存项目的持久状态。`evidence-first-testing` 在实现过程中提供回归证据。到了完成检查点，`design-integrity-review`
+按需使用相关的 Skill，而不是一条必须走完的十三步流水线。`grilling` 敲定人的决策；`reality-first-engineering` 敲定不确定的事实；`project-map` 保存项目的持久状态。`evidence-first-testing` 在实现过程中提供回归证据。到了完成检查点，`design-integrity-review`
 在干净上下文里审查一个冻结的候选版本。长时间或昂贵的运行、发布之前，`behavioral-acceptance-review`
 同样在干净上下文里，针对冻结的候选版本审查这次运行依赖的证据。`review-md`
 把它们评判的依据写下来。交接不等于授权开工。
@@ -142,7 +145,12 @@ flowchart TB
 - [`frontend-production`](https://github.com/a1024053774/frontend-production-skill/tree/main/frontend-production)
   —— 把 Web 前端做到、审到能上线：产品语气与视觉方向、统一的视觉家族、动效、移动端 Web，以及逐页的工程审查。取代 `frontend-less-ai-tone` 和 `same-visual-family`，这两个仓库已归档。
 
-源仓库：[frontend-production-skill](https://github.com/a1024053774/frontend-production-skill)
+- [`modern-web-guidance`](https://github.com/GoogleChrome/modern-web-guidance/tree/main/skills/modern-web-guidance)
+  —— 第三方，由 GoogleChrome 维护。检索并读取现代 HTML、CSS 和客户端 JS 的指南；指南默认以 Baseline Widely available 为准，更新的特性给出兼容方案。它的 CLI（`npx -y modern-web-guidance@latest search|retrieve`）需要联网。
+
+收录原因：`frontend-production` 管方向、文案、动效参数和审查，但它的配方是按组件库写的，落后于浏览器平台。两边对比后发现四处重叠：手风琴高度（原来要求用 JS 测量、不要动画到 `auto`，现在原生 `<details>` 加 `interpolate-size` 可以渐进增强实现）、弹层和模态框的进出场（原生 `allow-discrete` 和 `overlay`）、抽屉（原生 `<dialog>` 加 scroll-snap），以及选工具的表（缺顶层元素和滚动驱动动画两行）。现在 `frontend-production` 在合适的地方用原生配方，并把浏览器 API 的问题交给这个 Skill；它不管设计方向、文案和动效参数，项目已有的组件库仍然优先于原生重写。
+
+源仓库：[frontend-production-skill](https://github.com/a1024053774/frontend-production-skill) · [GoogleChrome/modern-web-guidance](https://github.com/GoogleChrome/modern-web-guidance)（第三方）
 
 ## 安装示例
 
@@ -166,6 +174,7 @@ npx skills add a1024053774/document-writing-skill --skill document-writing -g -y
 npx skills add a1024053774/asd-ste100 --skill asd-ste100 -g -y
 npx skills add a1024053774/paper-annotation-skill --skill paper-annotation -g -y
 npx skills add a1024053774/frontend-production-skill --skill frontend-production -g -y
+npx skills add GoogleChrome/modern-web-guidance --skill modern-web-guidance -g -y
 ```
 
 机器可读的目录是 [`skills.json`](skills.json)。本索引只放链接、元数据和安装坐标；Skill 行为的改动属于它的源仓库。
@@ -189,7 +198,8 @@ Skill 的运行时行为。
 | [document-writing-skill](https://github.com/a1024053774/document-writing-skill) | [`b22049e`](https://github.com/a1024053774/document-writing-skill/tree/b22049e8c5697c83ff8093f39848587d6ade5cbc) | `document-writing` |
 | [asd-ste100](https://github.com/a1024053774/asd-ste100) | [`d2f2d77`](https://github.com/a1024053774/asd-ste100/tree/d2f2d775c35c7aee861c96ed7e46569c993a8c69) | `asd-ste100` |
 | [paper-annotation-skill](https://github.com/a1024053774/paper-annotation-skill) | [`44cfc8b`](https://github.com/a1024053774/paper-annotation-skill/tree/44cfc8be5ab19e6dc8d9027e1898bbb014e5866d) | `paper-annotation` |
-| [frontend-production-skill](https://github.com/a1024053774/frontend-production-skill) | [`b291300`](https://github.com/a1024053774/frontend-production-skill/tree/b2913002abd3767c1e9272201568695e58232e48) | `frontend-production` |
+| [frontend-production-skill](https://github.com/a1024053774/frontend-production-skill) | [`2559c16`](https://github.com/a1024053774/frontend-production-skill/tree/2559c16f9838a1d5207c3ebca0b682bf1578dea8) | `frontend-production` |
+| [GoogleChrome/modern-web-guidance](https://github.com/GoogleChrome/modern-web-guidance)（第三方） | [`4dd9683`](https://github.com/GoogleChrome/modern-web-guidance/tree/4dd968349e54ca45a05dd5c818fb035c9054b022)（v1.0.0） | `modern-web-guidance` |
 
 ## 本地 checkout 与 Skill 中心目录
 
@@ -248,7 +258,7 @@ bash tests/check_skill_budget_e2e.sh                          # 用 fixture Skil
 
 | 检查 | 何时失败 |
 | --- | --- |
-| `size` | `SKILL.md` 超过 `--max-bytes`（默认 8192：需要重构的都是 9 KB 以上的文件，3–5 KB 的没有问题），或者超过该 Skill 在 `skills.json` 里自己的 `maxBytes`。`grilling` 是 11264：它的问题类型、map 格式和提问规则每一轮都要用，挪进 `references/` 只会让每轮都重读一遍。`asd-ste100` 是 18432：它是 fork，保留上游 `SKILL.md` 的结构以便继续合并上游改动，所以没有按默认预算重构 |
+| `size` | `SKILL.md` 超过 `--max-bytes`（默认 8192：需要重构的都是 9 KB 以上的文件，3–5 KB 的没有问题），或者超过该 Skill 在 `skills.json` 里自己的 `maxBytes`。`grilling` 是 11264：它的问题类型、map 格式和提问规则每一轮都要用，挪进 `references/` 只会让每轮都重读一遍。`asd-ste100` 是 18432：它是 fork，保留上游 `SKILL.md` 的结构以便继续合并上游改动，所以没有按默认预算重构。`modern-web-guidance` 是 10240：它是第三方 Skill，`SKILL.md` 是上游的，不归我们重构 |
 | `frontmatter` | 没有 frontmatter、`name` 与目录名不一致，或 `description` 为空或超过 1024 个字符 |
 | `orphan` | `references/` 下的某个文件没有被 `SKILL.md` 本身链接（Markdown 链接或写有其路径的代码片段都算） |
 | `link` | 某个相对 Markdown 链接（行内、图片或引用定义）指向不存在的目标 |

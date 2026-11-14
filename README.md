@@ -2,19 +2,22 @@
 
 English · [简体中文](README.zh-CN.md)
 
-A catalog of reusable Skills maintained by `a1024053774`. Each Skill keeps its own canonical
+A catalog of reusable Skills maintained by `a1024053774`, plus one third-party Skill,
+[`modern-web-guidance`](#frontend) from GoogleChrome, listed because `frontend-production` hands
+platform-API questions to it. Each Skill keeps its own canonical
 repository and release history; this repository provides one stable discovery and installation
 entry point without copying Skill code or creating synchronization drift. It also holds the two
 [hooks](#hooks) that run the Skills' checks, because they call Skills from more than one repository.
 
-The catalog contains **12 Skills from 9 source repositories**. Last reviewed: **2026-10-15**.
+The catalog contains **13 Skills from 10 source repositories**. Last reviewed: **2026-10-15**.
 The source revisions below matched each repository's remote `main` on that date, except
 `asd-ste100`, added on 2026-10-31: its revision matched its remote `master` that day; and
 `reality-evidence-engineering`, updated on 2026-11-04, and
 `design-integrity-guardrails` (which added `review-md`), updated on 2026-11-07, and
 `document-writing-skill`, updated on 2026-11-08: their revisions matched their remote `main` on
 those days; and `paper-annotation-skill`, added on 2026-11-11: its revision matched its remote
-`main` that day. Archived copies are
+`main` that day; and `modern-web-guidance`, added on 2026-11-13, and `frontend-production-skill`, updated on
+2026-11-14: their revisions matched their remote `main` on those days. Archived copies are
 not catalog entries.
 
 ## How the Skills work together
@@ -66,6 +69,8 @@ flowchart TB
         afm["architecture-flow-map<br/>how an existing codebase runs"]
         pa["paper-annotation<br/>annotated bilingual page of a paper, only when asked"]
         fp["frontend-production<br/>build and review web UI to ship"]
+        mwg["modern-web-guidance (GoogleChrome)<br/>which browser API, and its fallback"]
+        fp -. "platform API questions" .-> mwg
     end
 ```
 
@@ -91,8 +96,9 @@ owner's approval.
 | The user asks for a given text to be made unambiguous for a model or a non-native reader | `asd-ste100` | Run only when asked; rewrite the given English or Simplified Chinese text and keep every fact and hedge; never restyle the agent's own output |
 | The user asks for an English paper as an annotated bilingual page | `paper-annotation` | Run only when asked; take the original text from the source, never retype or skip paragraphs, and write a doubt only where a sentence supports it |
 | A web frontend must be built or reviewed to ship | `frontend-production` | Start from the audience, primary action, and real content; keep the project's tokens; review read-only with P0–P3 and evidence limits |
+| HTML, CSS, or client-side JS uses a browser capability (dialog, popover, accordion, top-layer or scroll-driven animation, forms, performance, security APIs) | `modern-web-guidance` | Third-party; decides which platform API to use and its fallback; `frontend-production` keeps direction, copy, motion values, and review, and the project's component library wins over native rewrites |
 
-Use the relevant Skills, not a mandatory twelve-step pipeline. `grilling` settles human decisions;
+Use the relevant Skills, not a mandatory thirteen-step pipeline. `grilling` settles human decisions;
 `reality-first-engineering` settles uncertain facts; `project-map` holds persistent project state.
 `evidence-first-testing` supplies regression evidence during implementation. At a completion
 checkpoint, `design-integrity-review` reviews a frozen candidate in a fresh context. Before a long
@@ -167,7 +173,22 @@ Source repository: [paper-annotation-skill](https://github.com/a1024053774/paper
   — build and review web frontends to ship: product voice and visual direction, one visual family,
   motion, mobile web, and page-by-page engineering review. Replaces `frontend-less-ai-tone` and `same-visual-family`, whose repositories are archived.
 
-Source repository: [frontend-production-skill](https://github.com/a1024053774/frontend-production-skill)
+- [`modern-web-guidance`](https://github.com/GoogleChrome/modern-web-guidance/tree/main/skills/modern-web-guidance)
+  — third-party, maintained by GoogleChrome. Searches and retrieves guides for modern HTML, CSS, and
+  client-side JS that assume Baseline Widely available and give a fallback for anything newer.
+  Its CLI (`npx -y modern-web-guidance@latest search|retrieve`) needs network access.
+
+Why it is listed: `frontend-production` covers direction, copy, motion values, and review, but its
+recipes were written around component libraries and lagged the platform. Comparing the two found
+four overlaps: accordion height (it said to measure in JS and never animate to `auto`; native
+`<details>` with `interpolate-size` now does this as a progressive enhancement), popover and modal
+transitions (native `allow-discrete` and `overlay`), drawers (native `<dialog>` with scroll-snap),
+and the tool ladder (no rows for top-layer or scroll-driven animation). `frontend-production` now
+uses the native recipes where they fit and sends platform-API questions here; this Skill does not
+own design direction, copy, or motion values, and a project's existing component library still wins
+over a native rewrite.
+
+Source repositories: [frontend-production-skill](https://github.com/a1024053774/frontend-production-skill) · [GoogleChrome/modern-web-guidance](https://github.com/GoogleChrome/modern-web-guidance) (third-party)
 
 ## Install examples
 
@@ -191,6 +212,7 @@ npx skills add a1024053774/document-writing-skill --skill document-writing -g -y
 npx skills add a1024053774/asd-ste100 --skill asd-ste100 -g -y
 npx skills add a1024053774/paper-annotation-skill --skill paper-annotation -g -y
 npx skills add a1024053774/frontend-production-skill --skill frontend-production -g -y
+npx skills add GoogleChrome/modern-web-guidance --skill modern-web-guidance -g -y
 ```
 
 The machine-readable catalog is [`skills.json`](skills.json). Keep this index limited to links,
@@ -216,7 +238,8 @@ fields does not pin installation or certify a Skill's runtime behavior.
 | [document-writing-skill](https://github.com/a1024053774/document-writing-skill) | [`b22049e`](https://github.com/a1024053774/document-writing-skill/tree/b22049e8c5697c83ff8093f39848587d6ade5cbc) | `document-writing` |
 | [asd-ste100](https://github.com/a1024053774/asd-ste100) | [`d2f2d77`](https://github.com/a1024053774/asd-ste100/tree/d2f2d775c35c7aee861c96ed7e46569c993a8c69) | `asd-ste100` |
 | [paper-annotation-skill](https://github.com/a1024053774/paper-annotation-skill) | [`44cfc8b`](https://github.com/a1024053774/paper-annotation-skill/tree/44cfc8be5ab19e6dc8d9027e1898bbb014e5866d) | `paper-annotation` |
-| [frontend-production-skill](https://github.com/a1024053774/frontend-production-skill) | [`b291300`](https://github.com/a1024053774/frontend-production-skill/tree/b2913002abd3767c1e9272201568695e58232e48) | `frontend-production` |
+| [frontend-production-skill](https://github.com/a1024053774/frontend-production-skill) | [`2559c16`](https://github.com/a1024053774/frontend-production-skill/tree/2559c16f9838a1d5207c3ebca0b682bf1578dea8) | `frontend-production` |
+| [GoogleChrome/modern-web-guidance](https://github.com/GoogleChrome/modern-web-guidance) (third-party) | [`4dd9683`](https://github.com/GoogleChrome/modern-web-guidance/tree/4dd968349e54ca45a05dd5c818fb035c9054b022) (v1.0.0) | `modern-web-guidance` |
 
 ## Local checkouts and the skill hub
 
@@ -287,7 +310,7 @@ bash tests/check_skill_budget_e2e.sh                          # acceptance run a
 
 | Check | Fails when |
 | --- | --- |
-| `size` | `SKILL.md` is over `--max-bytes` (default 8192: the files of 9 KB and up were the ones that needed restructuring, those of 3–5 KB were fine), or over the Skill's own `maxBytes` in `skills.json` when it has one. `grilling` has 11264: its question types, map format, and asking rules are used every round, so moving them to `references/` would only make each round reread them. `asd-ste100` has 18432: it is a fork that keeps upstream's `SKILL.md` layout so that upstream changes still merge, so it has not been restructured to the default budget |
+| `size` | `SKILL.md` is over `--max-bytes` (default 8192: the files of 9 KB and up were the ones that needed restructuring, those of 3–5 KB were fine), or over the Skill's own `maxBytes` in `skills.json` when it has one. `grilling` has 11264: its question types, map format, and asking rules are used every round, so moving them to `references/` would only make each round reread them. `asd-ste100` has 18432: it is a fork that keeps upstream's `SKILL.md` layout so that upstream changes still merge, so it has not been restructured to the default budget. `modern-web-guidance` has 10240: it is a third-party Skill, and its `SKILL.md` is upstream's, not ours to restructure |
 | `frontmatter` | there is no frontmatter, `name` is not the folder name, or `description` is empty or over 1024 characters |
 | `orphan` | a file under `references/` is not linked from `SKILL.md` itself, by a Markdown link or a code span holding its path |
 | `link` | a relative Markdown link (inline, image, or reference definition) points at nothing |

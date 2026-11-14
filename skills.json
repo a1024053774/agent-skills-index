@@ -111,7 +111,18 @@
       "repository": "https://github.com/a1024053774/frontend-production-skill",
       "path": "frontend-production",
       "install": "npx skills add a1024053774/frontend-production-skill --skill frontend-production -g -y",
-      "source_revision": "b2913002abd3767c1e9272201568695e58232e48"
+      "source_revision": "2559c16f9838a1d5207c3ebca0b682bf1578dea8"
+    },
+    {
+      "name": "modern-web-guidance",
+      "category": "frontend",
+      "maintainer": "GoogleChrome",
+      "description": "Third-party (GoogleChrome). Search and retrieve Baseline-aware guides for modern HTML, CSS, and client-side JS: which platform API to use, and the fallback where browser support is limited.",
+      "repository": "https://github.com/GoogleChrome/modern-web-guidance",
+      "path": "skills/modern-web-guidance",
+      "install": "npx skills add GoogleChrome/modern-web-guidance --skill modern-web-guidance -g -y",
+      "source_revision": "4dd968349e54ca45a05dd5c818fb035c9054b022",
+      "maxBytes": 10240
     }
   ]
 }
