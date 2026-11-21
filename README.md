@@ -49,7 +49,7 @@ flowchart TB
     rf -- PASS --> impl
     impl <--> ef
     impl --> stop
-    stop -- "new exception boundary or changed<br/>acceptance surface: block once" --> impl
+    stop -- "changed acceptance surface<br/>or stale living doc: block once" --> impl
     spin -. "reminder to the model" .-> impl
     rmd --> rv
     rv -. "frozen globs" .-> stop
@@ -268,7 +268,7 @@ repositories (`design-integrity-review` and `project-map`).
 
 | Hook | Events | What it does |
 | --- | --- | --- |
-| [`stop_checks.py`](hooks/stop_checks.py) | `SessionStart`, `Stop` (Claude Code and Codex) | On `SessionStart`, records `HEAD` as the session base in `<git-dir>/agent-session-base/<session_id>`, once, so a resumed session keeps it. On `Stop`, runs `design_integrity.py --base <that commit>` and, in a repository with `.project-map/`, `project_map.py status`. Each new item blocks the stop once: an added exception boundary, a changed acceptance surface (an acceptance test is frozen during implementation), a structural map problem, or a stale living doc. |
+| [`stop_checks.py`](hooks/stop_checks.py) | `SessionStart`, `Stop` (Claude Code and Codex) | On `SessionStart`, records `HEAD` as the session base in `<git-dir>/agent-session-base/<session_id>`, once, so a resumed session keeps it. On `Stop`, runs `design_integrity.py --base <that commit>` and, in a repository with `.project-map/`, `project_map.py status`. Each new item blocks the stop once: a changed acceptance surface (an acceptance test is frozen during implementation), a structural map problem, or a stale living doc. It does not report the scanner's exception boundaries: questioning every new handler at each stop cost far more than it found, so `design-integrity-review` judges them once, at a completion checkpoint. |
 | [`spin_signals.py`](hooks/spin_signals.py) | `PostToolUse`, `PostToolUseFailure`, `PostCompact` (Claude Code) | Tells the model, not the user, when the session may be spinning: the same test command failed 3 times in a row with edits in between, tests regressed twice (a test command failed after a test had passed), or the context was compacted twice. Many edits with no test run is normal feature work and does not count. |
 
 Install by linking them from this checkout, then register them:

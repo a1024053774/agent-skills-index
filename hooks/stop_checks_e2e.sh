@@ -5,12 +5,10 @@
 # Failure modes this run covers (written before the hook):
 #  F1  non-git cwd blocks or errors              -> must pass silently
 #  F2  clean repo blocks                         -> must pass
-#  F3  new swallowed exception is not reported   -> must block and name it
-#  F4  same finding blocks again next turn       -> must not block
-#  F5  finding re-blocks after its line shifts   -> must not block
-#  F6  old findings repeated with a new one      -> block lists only the new one
-#  F7  stop_hook_active=true still blocks (loop) -> must pass, and not swallow the finding
-#  F8  a removed finding is remembered forever   -> re-adding it must block again
+#  F4  same item blocks again next turn          -> must not block
+#  F6  old items repeated with a new one         -> block lists only the new one
+#  F7  stop_hook_active=true still blocks (loop) -> must pass, and not swallow the item
+#  F8  a removed item is remembered forever      -> re-adding it must block again
 #  F9  cwd in a subdirectory is missed           -> must still scan the repo
 #  F10 stale living doc in a project map ignored -> must block with status output
 #  F11 same stale doc blocks every turn          -> must not block again
@@ -28,6 +26,11 @@
 #  F22 editing REVIEW.md itself passes                        -> blocks (dropping a glob is a requirement change)
 #  F23 a recorded base that no longer exists crashes the hook -> falls back to HEAD, exit 0, still scans
 #  F24 a Codex-style Stop payload is not understood           -> same block reply
+# Changed 2026-11-20 (the hook no longer reports exception boundaries), written before the code:
+#  F3  a new swallowed exception blocks                       -> passes; design-integrity-review judges handlers
+#  F25 a block for another item also lists exception findings -> the reason names only acceptance and map items
+#  F4, F6-F9, F15, F16, F23 and F24 now drive the hook with acceptance-surface changes, which it still
+#  reports. F5 (a finding re-blocks after its line shifts) is gone: only exception findings carried lines.
 HOOK=${1:-"python3 $(cd "$(dirname "$0")" && pwd)/stop_checks.py"}
 T=$(mktemp -d "${TMPDIR:-/tmp}/stopchk.XXXX")
 pass=0; fail=0
@@ -56,46 +59,45 @@ run "$T/plain" false
 check "F1 non-git dir passes silently" test "$code" = 0 -a "$blocked" = no
 
 # F2
-R="$T/repo"; mkdir -p "$R/src"; cd "$R" && git init -q && git config user.email t@t && git config user.name t
-echo 'print("hi")' > src/main.py && git add -A && git commit -qm init
+R="$T/repo"; mkdir -p "$R/src" "$R/eval"; cd "$R" && git init -q && git config user.email t@t && git config user.name t
+echo 'print("hi")' > src/main.py && for n in a b c; do echo 's = 1' > "eval/$n.py"; done
+git add -A && git commit -qm init
 run "$R" false
 check "F2 clean repo passes" test "$code" = 0 -a "$blocked" = no
 
 # F3
 swallow a > src/a.py
 run "$R" false
-check "F3 new swallowed exception blocks" test "$code" = 0 -a "$blocked" = yes
-check "F3 reason names the file and kind" eval 'has src/a.py && has swallowed-exception'
+check "F3 new swallowed exception passes" test "$code" = 0 -a "$blocked" = no
 
-# F4
+# F4 + F25
+echo 's = 2' > eval/a.py; swallow b > src/b.py
 run "$R" false
-check "F4 same finding does not block again" test "$code" = 0 -a "$blocked" = no
-
-# F5
-{ printf '# header\n# header\n# header\n'; swallow a; } > src/a.py
+check "F4 acceptance change blocks" eval 'test "$blocked" = yes && has eval/a.py'
+check "F25 reason lists no exception findings" eval 'lacks src/b.py && lacks swallowed-exception'
 run "$R" false
-check "F5 shifted line does not block" test "$code" = 0 -a "$blocked" = no
+check "F4 same item does not block again" test "$code" = 0 -a "$blocked" = no
 
 # F6 + F9
-swallow b > src/b.py
+echo 's = 2' > eval/b.py
 run "$R/src" false
-check "F6/F9 new finding from a subdirectory blocks" test "$code" = 0 -a "$blocked" = yes
-check "F6 only the new finding is listed" eval 'has src/b.py && lacks src/a.py'
+check "F6/F9 new item from a subdirectory blocks" test "$code" = 0 -a "$blocked" = yes
+check "F6 only the new item is listed" eval 'has eval/b.py && lacks eval/a.py'
 
 # F7
-swallow c > src/c.py
+echo 's = 2' > eval/c.py
 run "$R" true
 check "F7 stop_hook_active passes" test "$code" = 0 -a "$blocked" = no
 run "$R" false
-check "F7 skipped finding is still reported later" eval 'test "$blocked" = yes && has src/c.py'
+check "F7 skipped item is still reported later" eval 'test "$blocked" = yes && has eval/c.py'
 
 # F8
-mv src/c.py "$T/c.py.saved"
+git checkout -q -- eval/c.py
 run "$R" false
 check "F8 removal passes" test "$code" = 0 -a "$blocked" = no
-mv "$T/c.py.saved" src/c.py
+echo 's = 2' > eval/c.py
 run "$R" false
-check "F8 re-added finding blocks again" eval 'test "$blocked" = yes && has src/c.py'
+check "F8 re-added item blocks again" eval 'test "$blocked" = yes && has eval/c.py'
 
 # F10 + F11
 P="$T/mapped"; mkdir -p "$P/src"; cd "$P" && git init -q && git config user.email t@t && git config user.name t
@@ -141,17 +143,17 @@ ev_s() { printf '{"hook_event_name":"%s","cwd":"%s","session_id":"%s","stop_hook
 run_s() { run "$2" false "$(ev_s "$1" "$2" "$3")"; }
 A="$T/accept"; mkdir -p "$A/src" "$A/eval" "$A/tests/e2e" "$A/tests/unit"
 cd "$A" && git init -q && git config user.email t@t && git config user.name t
-echo 'print(1)' > src/app.py; echo 's = 1' > eval/score.py; echo 'flow' > tests/e2e/flow.spec.ts
-echo 'def test_a(): pass' > tests/unit/test_a.py; git add -A && git commit -qm init
+echo 'print(1)' > src/app.py; for n in score d f; do echo 's = 1' > "eval/$n.py"; done
+echo 'flow' > tests/e2e/flow.spec.ts; echo 'def test_a(): pass' > tests/unit/test_a.py; git add -A && git commit -qm init
 run_s SessionStart "$A" sess-1
 check "F15 SessionStart prints nothing" test "$code" = 0 -a -z "$out"
-swallow d > src/d.py && git add -A && git commit -qm "commit inside the session"
+echo 's = 2' > eval/d.py && git add -A && git commit -qm "commit inside the session"
 run_s Stop "$A" sess-1
-check "F15 finding committed during the session blocks" eval 'test "$blocked" = yes && has src/d.py'
-swallow f > src/f.py && git add -A && git commit -qm "commit before resume"
+check "F15 change committed during the session blocks" eval 'test "$blocked" = yes && has eval/d.py'
+echo 's = 2' > eval/f.py && git add -A && git commit -qm "commit before resume"
 run_s SessionStart "$A" sess-1
 run_s Stop "$A" sess-1
-check "F16 resume keeps the first base" eval 'test "$blocked" = yes && has src/f.py'
+check "F16 resume keeps the first base" eval 'test "$blocked" = yes && has eval/f.py'
 echo 'def test_b(): pass' >> tests/unit/test_a.py
 run_s Stop "$A" sess-1
 check "F20 unit-test change passes" test "$code" = 0 -a "$blocked" = no
@@ -168,13 +170,13 @@ echo 'flow changed' > tests/e2e/flow.spec.ts
 run_s Stop "$A" sess-1
 check "F18 declared path blocks" eval 'test "$blocked" = yes && has "tests/e2e/flow.spec.ts (REVIEW.md)"'
 mkdir -p "$A/.git/agent-session-base" && echo 0123456789abcdef0123456789abcdef01234567 > "$A/.git/agent-session-base/sess-2"
-swallow g > src/g.py
+echo 'g' > tests/e2e/g.spec.ts
 run_s Stop "$A" sess-2
-check "F23 missing base falls back to HEAD and still scans" eval 'test "$code" = 0 -a "$blocked" = yes && has src/g.py'
-swallow h > src/h.py
+check "F23 missing base falls back to HEAD and still scans" eval 'test "$code" = 0 -a "$blocked" = yes && has tests/e2e/g.spec.ts'
+echo 'h' > tests/e2e/h.spec.ts
 codex_stop=$(printf '{"session_id":"019a-codex","turn_id":"t1","transcript_path":null,"cwd":"%s","hook_event_name":"Stop","model":"m","permission_mode":"default","stop_hook_active":false,"last_assistant_message":"done"}' "$A")
 run "$A" false "$codex_stop"
-check "F24 Codex Stop payload blocks the same way" eval 'test "$blocked" = yes && has src/h.py'
+check "F24 Codex Stop payload blocks the same way" eval 'test "$blocked" = yes && has tests/e2e/h.spec.ts'
 
 echo "---"; echo "passed $pass, failed $fail  (scratch: $T)"
 [ "$fail" = 0 ]

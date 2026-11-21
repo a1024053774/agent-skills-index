@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 """Stop hook for Claude Code and Codex: run the deterministic checks the skills otherwise rely on the model to remember.
 
-- design_integrity.py: exception boundaries added since the session started (a locator, not proof),
-  and changed acceptance surfaces (REVIEW.md `## Acceptance surfaces`, or the directory convention).
+- design_integrity.py: acceptance surfaces changed since the session started (REVIEW.md
+  `## Acceptance surfaces`, or the directory convention). The scanner also lists exception boundaries;
+  the hook ignores them. Asking about each new handler at every stop cost far more than it found, so
+  design-integrity-review judges handlers once, at a completion checkpoint.
 - project_map.py status: structural problems and stale living docs, when the repo has `.project-map/`.
 
 Both harnesses call this script with the same JSON on stdin and read the same `{"decision": "block",
@@ -11,10 +13,10 @@ Both harnesses call this script with the same JSON on stdin and read the same `{
 it compares the working tree with that commit. Without a recorded base it falls back to HEAD, which cannot
 see changes the session already committed.
 
-Each finding blocks the stop once. Reported findings are remembered in `<git-dir>/claude-stop-checks.txt`,
-keyed without line numbers, so a finding does not block again on later turns; the file is rewritten with
-the current findings, so one that disappears and comes back blocks again. When the stop is already a
-continuation forced by a Stop hook (`stop_hook_active`), nothing blocks, which rules out a loop.
+Each item blocks the stop once. Reported items are remembered in `<git-dir>/claude-stop-checks.txt`,
+so an item does not block again on later turns; the file is rewritten with the current items, so one
+that disappears and comes back blocks again. When the stop is already a continuation forced by a Stop
+hook (`stop_hook_active`), nothing blocks, which rules out a loop.
 
 Exit 0 always lets the harness act on stdout; exit 1 (bad input, missing helper) surfaces as a
 non-blocking hook error so a broken setup is visible instead of silently passing.
@@ -71,20 +73,15 @@ def session_base(root: Path, git_dir: str, event: dict) -> str | None:
     return sha if git(root, "cat-file", "-e", f"{sha}^{{commit}}") is not None else None
 
 
-def scanner_findings(root: Path, base: str | None) -> tuple[dict[str, str], dict[str, str]]:
-    """Map each finding's line-free key to its display line: (exception boundaries, acceptance changes)."""
+def acceptance_changes(root: Path, base: str | None) -> dict[str, str]:
+    """Map each changed acceptance surface's key to its display line; the scanner's exception findings are dropped."""
     args = ["--cwd", str(root), "--format", "json"] + (["--base", base] if base else [])
     result = run_helper(SCANNER, *args)
     if result.returncode != 0:
         raise RuntimeError(f"stop_checks: design_integrity.py failed: {result.stderr.strip()}")
     data = json.loads(result.stdout)
-    findings = {}
-    for f in data["findings"]:
-        key = "\t".join(("scan", f["path"], f["kind"], " ".join(f["text"].split())))
-        findings[key] = f"{f['path']}:{f['line']}: {f['kind']}: {f['text']}"
     source = data["acceptance_source"]
-    accepted = {"\t".join(("accept", path)): f"{path} ({source})" for path in data["acceptance_changes"]}
-    return findings, accepted
+    return {"\t".join(("accept", path)): f"{path} ({source})" for path in data["acceptance_changes"]}
 
 
 def map_findings(root: Path) -> dict[str, str]:
@@ -106,7 +103,7 @@ def map_findings(root: Path) -> dict[str, str]:
     return findings
 
 
-def reason(scan_new: list[str], accept_new: list[str], map_new: list[str]) -> str:
+def reason(accept_new: list[str], map_new: list[str]) -> str:
     parts = ["Stop checks found new items. Each is reported once and will not block again."]
     if accept_new:
         parts += ["", "Acceptance surfaces changed in this session:"]
@@ -114,12 +111,6 @@ def reason(scan_new: list[str], accept_new: list[str], map_new: list[str]) -> st
         parts += ["An acceptance test is frozen during implementation: changing it changes the requirement. "
                   "Revert the change, or say in the reply that the user asked for it or approved it. "
                   "Do not edit an acceptance test to make it pass."]
-    if scan_new:
-        parts += ["", "design_integrity.py (a locator, not proof; a hit is not a defect):"]
-        parts += [f"- {line}" for line in scan_new]
-        parts += ["For each, confirm a real caller or failure reaches it and that this layer owns the "
-                  "recovery (design-integrity-review gates). Keep legitimate handling; never delete it "
-                  "just to silence this check. State your conclusion in the reply."]
     if map_new:
         parts += ["", "project_map.py status:"]
         parts += [f"- {line}" for line in map_new]
@@ -146,7 +137,7 @@ def main() -> int:
     if event.get("stop_hook_active"):
         return 0
     try:
-        scan, accepted = scanner_findings(root, session_base(root, git_dir, event))
+        accepted = acceptance_changes(root, session_base(root, git_dir, event))
         mapped = map_findings(root)
     except (FileNotFoundError, RuntimeError) as exc:
         print(exc, file=sys.stderr)
@@ -154,15 +145,13 @@ def main() -> int:
 
     state = Path(git_dir) / STATE_NAME
     reported = set(state.read_text(encoding="utf-8").splitlines()) if state.is_file() else set()
-    current = {**scan, **accepted, **mapped}
+    current = {**accepted, **mapped}
     state.write_text("".join(f"{key}\n" for key in sorted(current)), encoding="utf-8")
 
-    scan_new = [line for key, line in scan.items() if key not in reported]
     accept_new = [line for key, line in accepted.items() if key not in reported]
     map_new = [line for key, line in mapped.items() if key not in reported]
-    if scan_new or accept_new or map_new:
-        print(json.dumps({"decision": "block", "reason": reason(scan_new, accept_new, map_new)},
-                         ensure_ascii=False))
+    if accept_new or map_new:
+        print(json.dumps({"decision": "block", "reason": reason(accept_new, map_new)}, ensure_ascii=False))
     return 0
 
 

@@ -34,7 +34,7 @@ flowchart TB
     rf -- PASS --> impl
     impl <--> ef
     impl --> stop
-    stop -- "新增异常边界或验收面被改动：<br/>各阻断一次" --> impl
+    stop -- "验收面被改动或活文档过期：<br/>各阻断一次" --> impl
     spin -. "提醒模型" .-> impl
     rmd --> rv
     rv -. "冻结的 glob" .-> stop
@@ -220,7 +220,7 @@ Skill 里的脚本只有模型想起来才会运行；hook 每次都会运行。
 
 | Hook | 事件 | 做什么 |
 | --- | --- | --- |
-| [`stop_checks.py`](hooks/stop_checks.py) | `SessionStart`、`Stop`（Claude Code 和 Codex） | `SessionStart` 时把 `HEAD` 作为会话起点记到 `<git-dir>/agent-session-base/<session_id>`，只记一次，恢复会话时保留原起点。`Stop` 时运行 `design_integrity.py --base <该 commit>`；仓库有 `.project-map/` 时再运行 `project_map.py status`。每个新问题阻断一次 Stop：新增的异常边界、被改动的验收面（实现过程中验收测试是冻结的）、map 的结构问题，或过期的活文档。 |
+| [`stop_checks.py`](hooks/stop_checks.py) | `SessionStart`、`Stop`（Claude Code 和 Codex） | `SessionStart` 时把 `HEAD` 作为会话起点记到 `<git-dir>/agent-session-base/<session_id>`，只记一次，恢复会话时保留原起点。`Stop` 时运行 `design_integrity.py --base <该 commit>`；仓库有 `.project-map/` 时再运行 `project_map.py status`。每个新问题阻断一次 Stop：被改动的验收面（实现过程中验收测试是冻结的）、map 的结构问题，或过期的活文档。它不报告 scanner 找到的异常边界：每次 Stop 都逐个追问新增的异常处理，代价远超收获，这类判断交给 `design-integrity-review` 在完成检查点做一次。 |
 | [`spin_signals.py`](hooks/spin_signals.py) | `PostToolUse`、`PostToolUseFailure`、`PostCompact`（Claude Code） | 会话可能在原地打转时提醒模型（不显示给用户）：同一个测试命令连续失败 3 次且中间改过代码；测试回退了两次（某个测试命令在之前有测试通过之后又失败）；或上下文被压缩了两次。改了很多次却没跑测试是正常的功能开发，不算打转。 |
 
 从本 checkout 链接安装，再注册：
