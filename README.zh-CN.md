@@ -4,7 +4,7 @@
 
 这是 `a1024053774` 维护的一组可复用 Skill 的目录，另外收录了一个第三方 Skill：GoogleChrome 的 [`modern-web-guidance`](#前端)，因为 `frontend-production` 把浏览器 API 的问题交给它。每个 Skill 都有自己的源仓库和发布历史；本仓库只提供统一的查找和安装入口，不复制 Skill 代码，也不制造同步漂移。运行这些 Skill 检查的两个 [hook](#hook) 也放在这里，因为它们会调用不止一个仓库里的 Skill。
 
-目录共收录 **10 个源仓库中的 13 个 Skill**。上次完整复核：**2026-10-15**。下表中的源码修订在那一天与各仓库远端的 `main` 一致，以下几项除外：`asd-ste100` 于 2026-10-31 加入，其修订与当天远端的 `master` 一致；`reality-evidence-engineering` 于 2026-11-04 更新，`design-integrity-guardrails` 于 2026-11-20 更新，`document-writing-skill` 于 2026-11-08 更新，其修订与更新当天远端的 `main` 一致；`paper-annotation-skill` 于 2026-11-11 加入，其修订与当天远端的 `main` 一致；`modern-web-guidance` 于 2026-11-13 加入，`frontend-production-skill` 于 2026-11-14 更新，其修订与当天远端的 `main` 一致。已归档的副本不算目录条目。
+目录共收录 **10 个源仓库中的 13 个 Skill**。上次完整复核：**2026-10-15**。下表中的源码修订在那一天与各仓库远端的 `main` 一致，以下几项除外：`asd-ste100` 于 2026-10-31 加入，其修订与当天远端的 `master` 一致；`reality-evidence-engineering` 于 2026-11-04 更新，`design-integrity-guardrails` 于 2026-11-25 更新，`document-writing-skill` 于 2026-11-08 更新，其修订与更新当天远端的 `main` 一致；`paper-annotation-skill` 于 2026-11-11 加入，其修订与当天远端的 `main` 一致；`modern-web-guidance` 于 2026-11-13 加入，`frontend-production-skill` 于 2026-11-14 更新，其修订与当天远端的 `main` 一致。已归档的副本不算目录条目。
 
 ## 这些 Skill 怎么配合
 
@@ -59,7 +59,7 @@ flowchart TB
     end
 ```
 
-审查在干净上下文里进行，拿到的是任务的目标、非目标和验收条件，不是实现者的理由；继承了理由的审查者往往只会去证实它。审查深度由改动本身决定，不看作者是谁：文档和文案不需要审查，普通代码按下面的路由表走，碰到 `REVIEW.md` 里的敏感路径或验收面时两个审查都跑，再由负责人批准。
+审查在干净上下文里、由不同于实现者的模型（优先 GPT）进行，拿到的是任务的目标、非目标和验收条件，不是实现者的理由；继承了理由的审查者往往只会去证实它。审查深度由改动本身决定，不看作者是谁：文档和文案不需要审查，普通代码按下面的路由表走，碰到 `REVIEW.md` 里的敏感路径或验收面时两个审查都跑，再由负责人批准。
 
 ## 选哪个 Skill
 
@@ -191,7 +191,7 @@ Skill 的运行时行为。
 | 源仓库 | 复核的 commit | Skill |
 | --- | --- | --- |
 | [reality-evidence-engineering](https://github.com/a1024053774/reality-evidence-engineering) | [`d52db57`](https://github.com/a1024053774/reality-evidence-engineering/tree/d52db5737fa242db8a56ebcc71851d3462157f64) | `reality-first-engineering`、`evidence-first-testing` |
-| [design-integrity-guardrails](https://github.com/a1024053774/design-integrity-guardrails) | [`6281a8b`](https://github.com/a1024053774/design-integrity-guardrails/tree/6281a8b6abad5270c860a198acc4a03059577be2) | `design-integrity-review`、`behavioral-acceptance-review`、`review-md` |
+| [design-integrity-guardrails](https://github.com/a1024053774/design-integrity-guardrails) | [`8d8a1e3`](https://github.com/a1024053774/design-integrity-guardrails/tree/8d8a1e3b1c1ac57247a4993745b8492bd8ba44b1) | `design-integrity-review`、`behavioral-acceptance-review`、`review-md` |
 | [grilling-skill](https://github.com/a1024053774/grilling-skill) | [`f1e01bb`](https://github.com/a1024053774/grilling-skill/tree/f1e01bb6b94deb15769eee552125535c2c80ef42) | `grilling` |
 | [project-map-skill](https://github.com/a1024053774/project-map-skill) | [`c16779a`](https://github.com/a1024053774/project-map-skill/tree/c16779a296f43a91b20da2cabbe70223a7569f9a) | `project-map` |
 | [architecture-flow-map-skill](https://github.com/a1024053774/architecture-flow-map-skill) | [`8b3a0c5`](https://github.com/a1024053774/architecture-flow-map-skill/tree/8b3a0c5df60ee762461b39613614741b2f715f4b) | `architecture-flow-map` |
